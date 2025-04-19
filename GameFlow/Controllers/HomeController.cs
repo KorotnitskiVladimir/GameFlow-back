@@ -25,6 +25,7 @@ public class HomeController : Controller
 
     public IActionResult Main()
     {
+        // Делаю пока просто заглушку. потом ее поменяю
         return View();
     }
 
