@@ -1,7 +1,18 @@
+using GameFlow.Data;
+using GameFlow.Middleware;
+using GameFlow.Services.KDF;
+using GameFlow.Services.Storage;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddSingleton<IKDFService, PBKDF1Service>();
+
+builder.Services.AddSingleton<IstorageService, FileStorageService>();
 
 builder.Services.AddDistributedMemoryCache(); // Включаем сессию
 builder.Services.AddSession(options =>
@@ -10,7 +21,18 @@ builder.Services.AddSession(options =>
         options.Cookie.HttpOnly = true;
         options.Cookie.IsEssential = true;
     }
-); 
+);
+
+builder.Services.AddDbContext<DataContext>(
+    options => options
+        .UseSqlServer(builder
+            .Configuration
+            .GetConnectionString("LocalMs")));
+
+builder.Services.AddScoped<DataAccessor>();
+
+builder.Services.AddCors(options =>
+    options.AddPolicy("CorsPolicy", policy => { policy.AllowAnyOrigin(); }));
 
 var app = builder.Build();
 
@@ -24,11 +46,10 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
-
+app.UseCors("CorsPolicy");
 app.UseAuthorization();
-
 app.UseSession(); // запускаем сессию
-
+app.UseAuthSession();
 app.MapStaticAssets();
 
 app.MapControllerRoute(
