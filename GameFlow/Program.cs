@@ -31,8 +31,11 @@ builder.Services.AddDbContext<DataContext>(
 
 builder.Services.AddScoped<DataAccessor>();
 
+//builder.Services.AddCors(options =>
+   // options.AddPolicy("CorsPolicy", policy => { policy.AllowAnyOrigin(); }));
+
 builder.Services.AddCors(options =>
-    options.AddPolicy("CorsPolicy", policy => { policy.AllowAnyOrigin(); }));
+    options.AddDefaultPolicy(policy => { policy.AllowAnyOrigin(); }));
 
 var app = builder.Build();
 
@@ -46,7 +49,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
-app.UseCors("CorsPolicy");
+app.UseCors();
 app.UseAuthorization();
 app.UseSession(); // запускаем сессию
 app.UseAuthSession();
