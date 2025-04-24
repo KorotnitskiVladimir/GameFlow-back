@@ -4,15 +4,18 @@
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>cf5f4492-2230-4d4f-972d-d4210307bf6f</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.3.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.13" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.13" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.13">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="MvcSiteMapProvider.Web" Version="4.6.26" />
       <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="29.1.38" />
     </ItemGroup>
 
