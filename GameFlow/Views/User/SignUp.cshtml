@@ -1,0 +1,22 @@
+﻿@model GameFlow.Models.User.UserSignUpViewModel
+@{
+    ViewData["Title"] = "User's registration page";
+}
+<div class="text-center">
+    <h1 class="display-4">User's registration page</h1>
+</div>
+<div class="row">
+    <div class="col">
+        <form id="user-registration-form" enctype="multipart/form-data">
+            Login: <input name="user-login"/><br/>
+            Full name: <input name="user-name"/><br/>
+            Password: <input name="user-password" type="password" minlength="6">
+            Repeat password: <input name="repeat-password" type="password" minlength="6">
+            Phone: <input name="user-phone" placeholder="+"/><br/>
+            Email: <input name="user-email" type="email"/><br/>
+            Country: <input name="user-country"/><br/>
+            Birth date: <input name="user-birthDate" type="date">
+            <button type="submit">Register now</button>
+        </form>
+    </div>
+</div>

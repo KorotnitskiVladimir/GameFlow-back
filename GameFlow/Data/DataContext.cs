@@ -7,6 +7,7 @@ public class DataContext: DbContext // создаем базу данных
     public DbSet<UserData> UsersData { get; private set; }
     public DbSet<UserRole> UserRoles { get; private set; }
     public DbSet<UserAccess> UserAccesses { get; private set; }
+    public DbSet<AccessToken> AccessTokens { get; private set; }
 
     public DataContext(DbContextOptions options) : base(options) {}
 
@@ -28,6 +29,8 @@ public class DataContext: DbContext // создаем базу данных
             .HasOne(ua => ua.UserRole)
             .WithMany()
             .HasForeignKey(ua => ua.RoleId);
+
+        modelBuilder.Entity<AccessToken>().HasKey(t => t.Jti);
 
         modelBuilder.Entity<UserRole>().HasData(
             new UserRole()

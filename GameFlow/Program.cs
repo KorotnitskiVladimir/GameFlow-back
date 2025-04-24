@@ -1,6 +1,7 @@
 using GameFlow.Data;
 using GameFlow.Middleware;
 using GameFlow.Services.KDF;
+using GameFlow.Services.Salt;
 using GameFlow.Services.Storage;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,8 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton<IKDFService, PBKDF1Service>();
 
 builder.Services.AddSingleton<IstorageService, FileStorageService>();
+
+builder.Services.AddSingleton<ISaltGeneratorService, SaltGenerator>();
 
 builder.Services.AddDistributedMemoryCache(); // Включаем сессию
 builder.Services.AddSession(options =>
