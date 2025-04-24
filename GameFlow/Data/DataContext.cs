@@ -7,12 +7,16 @@ public class DataContext: DbContext // создаем базу данных
     public DbSet<UserData> UsersData { get; private set; }
     public DbSet<UserRole> UserRoles { get; private set; }
     public DbSet<UserAccess> UserAccesses { get; private set; }
+    public DbSet<Entities.AccessToken> AccessTokens { get; private set; }
 
     public DataContext(DbContextOptions options) : base(options) {}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("GameFlow");
+
+        modelBuilder.Entity<Entities.AccessToken>()
+                .HasKey(t => t.Jti);
 
         modelBuilder.Entity<UserAccess>()
             .HasIndex(ua => ua.Login)

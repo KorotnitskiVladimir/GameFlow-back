@@ -22,16 +22,19 @@ public class AuthSessionMiddleware
             return;
         }
 
-        if (dataContext.UserAccesses
+        if (context.Session.Keys.Contains("userAccessId"))
+        {
+
+            if (dataContext.UserAccesses
                 .Include(ua => ua.UserData)
                 .Include(ua => ua.UserRole)
                 .FirstOrDefault(ua => ua.Id.ToString() == context.Session.GetString("userAccessId"))
             is UserAccess userAccess)
-        {
-            context.User = new ClaimsPrincipal(
-                new ClaimsIdentity(
-                    new Claim[]
-                    {
+            {
+                context.User = new ClaimsPrincipal(
+                    new ClaimsIdentity(
+                        new Claim[]
+                        {
                         new Claim(ClaimTypes.Sid, userAccess.Id.ToString()),
                         new Claim(ClaimTypes.Name, userAccess.UserData.UserName),
                         new Claim(ClaimTypes.Email, userAccess.UserData.Email),
@@ -43,10 +46,11 @@ public class AuthSessionMiddleware
                         new Claim("CanRead", userAccess.UserRole.CanRead.ToString()),
                         new Claim("CanUpdate", userAccess.UserRole.CanUpdate.ToString()),
                         new Claim("CanDelete", userAccess.UserRole.CanDelete.ToString())
-                    }, nameof(AuthSessionMiddleware)));
+                        }, nameof(AuthSessionMiddleware)));
+            }
         }
-
         await _next(context);
+
     }
 }
 

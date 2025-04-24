@@ -1,4 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+@{
+    bool isAuthenticated = Context.User.Identity?.IsAuthenticated ?? false;
+    String? userName = Context.User.Claims
+            .FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+    String? uaId = Context.User.Claims
+          .FirstOrDefault(c => c.Type == ClaimTypes.Sid)?.Value;
+    char? firstLetter = userName?[0];
+}
+
+
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -6,12 +19,13 @@
     <title>@ViewData["Title"] - GameFlow</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/GameFlow.styles.css" asp-append-version="true"/>
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+<header >
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style=" background:pink">
         <div class="container-fluid">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GameFlow</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -27,6 +41,34 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </li>
                 </ul>
+
+                    @if (isAuthenticated)
+                    {
+
+             
+                        <span class="auth-letter" data-auth-ua-id="@uaId"
+                              title="@userName">@firstLetter</span>
+                        <a class="nav-link text-dark" href="?logout">Sign Out</a>
+                    }
+                    else
+                    {
+                        <ul class="navbar-nav flex-grow-3">
+                            <li class ="nav-item">
+                                <!-- Button trigger modal -->
+                                <span class="nav-link text-dark" style="cursor:pointer"
+                                      data-bs-toggle="modal" data-bs-target="#authModal">
+                                    Sign In
+                                </span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Signup" style=" color:darkred">Sign Up</a>
+                            </li>
+                        </ul>
+                       
+
+                        
+                    }
+
             </div>
         </div>
     </nav>
@@ -42,6 +84,42 @@
         &copy; 2025 - GameFlow - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>
 </footer>
+
+    <!-- Modal -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="authModalLabel">Автентифікація</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="auth-modal-form">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="AuthLogin-addon"><i class="bi bi-box-arrow-in-right"></i></span>
+                            <input type="text" class="form-control"
+                                   name="AuthLogin" placeholder="AuthLogin"
+                                   aria-label="AuthLogin" aria-describedby="AuthLogin-addon">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="AuthPassword-addon"><i class="bi bi-key"></i></span>
+                            <input type="password" class="form-control"
+                                   name="AuthPassword" placeholder="AuthPassword"
+                                   aria-label="AuthPassword" aria-describedby="AuthPassword-addon">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div id="mess"
+                         style="width:200px;height:30px;margin-right:50px;font-size:17px;color:red;">
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+                    <button type="submit" form="auth-modal-form" class="btn btn-primary">Вхід</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>

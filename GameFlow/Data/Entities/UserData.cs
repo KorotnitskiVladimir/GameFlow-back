@@ -19,5 +19,8 @@ public class UserData
     // Можно добавить в диплом:
     // - настройки приватности
     // - инвентарь с ништяками
-
+    public override string ToString()
+    {
+        return $"UserData: Id({Id}), Name({UserName}), Email({Email}), Country({Country}), Phone({Phone}), AvatarUrl({AvatarUrl}), AboutUser({AboutUser}), BirthDate({BirthDate})";
+    }
 }
