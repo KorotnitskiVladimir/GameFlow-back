@@ -65,6 +65,7 @@ public class DataAccessor
             throw new Win32Exception(401, "Credentials rejected.");
         }
         
+        //Серж, тут тоже нужно было сначала добавить проверку существует ли уже такой токен
         var sub = _dataContext.AccessTokens.FirstOrDefault(at => at.Sub == userAccess.Id);
         if (sub != null)
         {
