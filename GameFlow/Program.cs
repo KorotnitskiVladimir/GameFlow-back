@@ -1,5 +1,6 @@
 using GameFlow.Data;
 using GameFlow.Middleware;
+using GameFlow.Services.Date;
 using GameFlow.Services.KDF;
 using GameFlow.Services.Salt;
 using GameFlow.Services.Storage;
@@ -16,6 +17,8 @@ builder.Services.AddSingleton<IKDFService, PBKDF1Service>();
 builder.Services.AddSingleton<IstorageService, FileStorageService>();
 
 builder.Services.AddSingleton<ISaltGeneratorService, SaltGenerator>();
+
+builder.Services.AddSingleton<IAgeCalculatorService, AgeCalculator>();
 
 builder.Services.AddDistributedMemoryCache(); // Включаем сессию
 builder.Services.AddSession(options =>

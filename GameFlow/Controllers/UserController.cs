@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using GameFlow.Data;
 using GameFlow.Models.User;
+using GameFlow.Services.Date;
 using GameFlow.Services.KDF;
 using GameFlow.Services.Salt;
 using Microsoft.AspNetCore.Mvc;
@@ -14,13 +15,16 @@ public class UserController : Controller
     private readonly IKDFService _kdfService;
     private readonly ISaltGeneratorService _saltGenerator;
     private readonly DataAccessor _dataAccessor;
+    private readonly IAgeCalculatorService _ageCalculator;
 
-    public UserController(DataContext dataContext, IKDFService kdfService, ISaltGeneratorService saltGenerator, DataAccessor dataAccessor)
+    public UserController(DataContext dataContext, IKDFService kdfService, ISaltGeneratorService saltGenerator, 
+        DataAccessor dataAccessor, IAgeCalculatorService ageCalculator)
     {
         _dataContext = dataContext;
         _kdfService = kdfService;
         _saltGenerator = saltGenerator;
         _dataAccessor = dataAccessor;
+        _ageCalculator = ageCalculator;
     }
     
     public IActionResult Index()
@@ -148,7 +152,7 @@ public class UserController : Controller
                 errors[nameof(formModel.BirthDate)] = "Birth date required";
             }
 
-            if ((DateTime.Now.Year - formModel.BirthDate.Year) < 18)
+            if (_ageCalculator.CalculateAge(formModel.BirthDate) < 18)
             {
                 errors[nameof(formModel.BirthDate)] = "You should be at least 18 years old to register";
             }
