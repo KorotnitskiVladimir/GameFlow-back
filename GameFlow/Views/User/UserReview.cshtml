@@ -1,0 +1,66 @@
+﻿
+@{
+    String? UserName = Context.User.Claims
+           .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Name)?.Value;
+    String? UserEmail = Context.User.Claims
+    .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Email)?.Value;
+    String? MobilePhone = Context.User.Claims
+    .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.MobilePhone)?.Value;
+    String? Actor = Context.User.Claims
+    .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Actor)?.Value;
+    String? Dsa = Context.User.Claims
+           .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Dsa)?.Value;
+    String? Country = Context.User.Claims
+    .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Country)?.Value;
+    String? DateOfBirth = Context.User.Claims
+           .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.DateOfBirth)?.Value;
+    String? NameIdentifier = Context.User.Claims
+           .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+    String? Uri = Context.User.Claims
+           .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Uri)?.Value;
+
+}
+<div class="text-center">
+    <h1 class="display-4">User's review</h1>
+</div>
+<div class="row">
+    <div class="col">
+
+
+        UserName:&nbsp&nbsp @UserName<br />
+        Login:&nbsp&nbsp @Actor<br />
+        Email: &nbsp&nbsp @UserEmail<br />
+        Phone:&nbsp&nbsp @MobilePhone<br />
+        Country:&nbsp&nbsp @Country<br />
+        BirthDate:&nbsp&nbsp @DateOfBirth<br />
+        RegDate:&nbsp&nbsp @Dsa<br />
+   	
+    </div>
+    <div class="col">
+
+        @if (Uri == null)
+		{
+			<img src="@Uri" alt="Avatar" style="width: 100px; height: 100px;" />
+		}
+		else
+		{
+			<img src="~/images/default-avatar.png" alt="Default Avatar" style="width: 100px; height: 100px;" />
+		}
+       
+        
+        @if (NameIdentifier==null)
+        {
+            <div class="col">
+                AboutUser:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp @NameIdentifier<br />
+            </div>
+        }
+        
+        
+       
+
+    </div>
+    <br />
+    <botton class=" btn" >
+        <a asp-controller="User" asp-action="UserAmendment">Edit</a>
+    </botton>
+</div>

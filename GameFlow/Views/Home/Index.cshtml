@@ -1,6 +1,10 @@
-﻿@{
+﻿@using GameFlow.Data
+@{
     ViewData["Title"] = "Home Page";
+    String? UserId = Context.User.Claims
+    .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Sid)?.Value;
 }
+
 
 <div class="text-center">
     <h1 class="display-4">Welcome to GameFlow</h1>
@@ -8,7 +12,12 @@
 
 
 <h1>Content</h1>
-<h2>Hello!</h2>
+
 
 <h3><a asp-controller="Home" asp-action="Main">Main page</a></h3>
-<h3><a asp-controller="User" asp-action="Index">User's Page</a></h3>
+
+
+@if (UserId != null)
+{
+    <h3><a asp-controller="User" asp-action="Index">User's Page</a></h3>
+}

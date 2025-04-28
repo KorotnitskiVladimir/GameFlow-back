@@ -1,7 +1,9 @@
-﻿using System.ComponentModel;
+﻿
+using System.ComponentModel;
 using GameFlow.Services.KDF;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace GameFlow.Data;
 
@@ -18,9 +20,9 @@ public class DataAccessor
         _kdfService = kdfService;
     }
 
-    private string ImagePath => 
+    private string ImagePath =>
         $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}/Shop/Image";
-    
+
     public AccessToken Authenticate(HttpRequest Request)
     {
         string authHeader = Request.Headers.Authorization.ToString();
@@ -59,12 +61,12 @@ public class DataAccessor
         {
             throw new Win32Exception(401, "Credentials rejected");
         }
-        
+
         if (_kdfService.DerivedKey(password, userAccess.Salt) != userAccess.Dk)
         {
             throw new Win32Exception(401, "Credentials rejected.");
         }
-        
+
         //Серж, тут тоже нужно было сначала добавить проверку существует ли уже такой токен
         var sub = _dataContext.AccessTokens.FirstOrDefault(at => at.Sub == userAccess.Id);
         if (sub != null)
@@ -90,4 +92,8 @@ public class DataAccessor
             return accessToken;
         }
     }
+
+       
+
 }
+

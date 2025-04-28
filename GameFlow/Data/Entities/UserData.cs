@@ -12,6 +12,7 @@ public class UserData
     public string? AboutUser { get; set; }
     public DateTime BirthDate { get; set; }
     public DateTime RegDate { get; set; }
+
     // Добавить уже:
     // - список купленных продуктов
     // - ачивки?

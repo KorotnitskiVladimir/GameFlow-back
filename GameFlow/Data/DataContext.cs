@@ -32,6 +32,8 @@ public class DataContext: DbContext // создаем базу данных
 
         modelBuilder.Entity<AccessToken>().HasKey(t => t.Jti);
 
+
+
         modelBuilder.Entity<UserRole>().HasData(
             new UserRole()
             {

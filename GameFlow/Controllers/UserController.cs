@@ -175,4 +175,14 @@ public class UserController : Controller
         HttpContext.Session.SetString("userAccessId", accessToken.Sub.ToString());
         return Json(new { status = 200, message = "OK" });
     }
+
+    public ViewResult UserReview()
+    {
+        return View();
+    }
+    public ViewResult UserAmendment()
+    {
+        return View();
+    }
+
 }

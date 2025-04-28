@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 using GameFlow.Data;
+using System.Globalization;
 
 namespace GameFlow.Middleware;
 
@@ -24,7 +25,7 @@ public class AuthSessionMiddleware
 
         if (context.Session.Keys.Contains("userAccessId"))
         {
-            // пользователь аутентифицирован
+            // пользователь аутентифицирован  
             context.Items.Add("auth", "OK");
 
             if (dataContext.UserAccesses
@@ -37,18 +38,22 @@ public class AuthSessionMiddleware
                     new ClaimsIdentity(
                         new Claim[]
                         {
-                            new Claim(ClaimTypes.Sid, userAccess.Id.ToString()),
-                            new Claim(ClaimTypes.Name, userAccess.UserData.UserName),
-                            new Claim(ClaimTypes.Email, userAccess.UserData.Email),
-                            new Claim(ClaimTypes.MobilePhone, userAccess.UserData.Phone),
-                            new Claim(ClaimTypes.Actor, userAccess.UserData.Login),
-                            new Claim(ClaimTypes.Country, userAccess.UserData.Country),
-                            new Claim(ClaimTypes.Role, userAccess.UserRole.Id),
-                            new Claim("CanCreate", userAccess.UserRole.CanCreate.ToString()),
-                            new Claim("CanRead", userAccess.UserRole.CanRead.ToString()),
-                            new Claim("CanUpdate", userAccess.UserRole.CanUpdate.ToString()),
-                            new Claim("CanDelete", userAccess.UserRole.CanDelete.ToString())
-                        }, nameof(AuthSessionMiddleware))); 
+                           new Claim(ClaimTypes.Sid, userAccess.Id.ToString()),
+                           new Claim(ClaimTypes.Name, userAccess.UserData.UserName),
+                           new Claim(ClaimTypes.Email, userAccess.UserData.Email),
+                           new Claim(ClaimTypes.MobilePhone, userAccess.UserData.Phone),
+                           new Claim(ClaimTypes.Actor, userAccess.UserData.Login),
+                           new Claim(ClaimTypes.Country, userAccess.UserData.Country),
+                           new Claim(ClaimTypes.Role, userAccess.UserRole.Id),
+                           new Claim(ClaimTypes.Dsa,userAccess.UserData.RegDate.ToString()),
+                           new Claim(ClaimTypes.Uri, userAccess.UserData.AvatarUrl ?? string.Empty), 
+                           new Claim(ClaimTypes.NameIdentifier, userAccess.UserData.AboutUser ?? string.Empty),
+                           new Claim(ClaimTypes.DateOfBirth, userAccess.UserData.BirthDate.ToString()),
+                           new Claim("CanCreate", userAccess.UserRole.CanCreate.ToString()),
+                           new Claim("CanRead", userAccess.UserRole.CanRead.ToString()),
+                           new Claim("CanUpdate", userAccess.UserRole.CanUpdate.ToString()),
+                           new Claim("CanDelete", userAccess.UserRole.CanDelete.ToString())
+                        }, nameof(AuthSessionMiddleware)));
             }
         }
         await _next(context);
