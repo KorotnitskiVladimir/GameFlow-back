@@ -3,28 +3,32 @@
   "WorkspaceRootPath": "C:\\GF\\GameFlow-back\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|c:\\gf\\gameflow-back\\gameflow\\views\\user\\userreview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|solutionrelative:gameflow\\views\\user\\userreview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|c:\\gf\\gameflow-back\\gameflow\\views\\user\\useramendment.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|solutionrelative:gameflow\\views\\user\\useramendment.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|c:\\gf\\gameflow-back\\gameflow\\views\\user\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|solutionrelative:gameflow\\views\\user\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|c:\\gf\\gameflow-back\\gameflow\\views\\user\\signup.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|solutionrelative:gameflow\\views\\user\\signup.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|c:\\gf\\gameflow-back\\gameflow\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|solutionrelative:gameflow\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|c:\\gf\\gameflow-back\\gameflow\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|solutionrelative:gameflow\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|c:\\gf\\gameflow-back\\gameflow\\views\\user\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|solutionrelative:gameflow\\views\\user\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|c:\\gf\\gameflow-back\\gameflow\\data\\entities\\userdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|solutionrelative:gameflow\\data\\entities\\userdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|c:\\gf\\gameflow-back\\gameflow\\views\\user\\userreview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|solutionrelative:gameflow\\views\\user\\userreview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|c:\\gf\\gameflow-back\\gameflow\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|solutionrelative:gameflow\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|c:\\gf\\gameflow-back\\gameflow\\middleware\\authsessionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -37,10 +41,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|c:\\gf\\gameflow-back\\gameflow\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|solutionrelative:gameflow\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|c:\\gf\\gameflow-back\\gameflow\\models\\user\\userreviewviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|solutionrelative:gameflow\\models\\user\\userreviewviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4361C839-3BF2-4891-8555-177F67CBBC7D}|GameFlow\\GameFlow.csproj|c:\\gf\\gameflow-back\\gameflow\\data\\entities\\useraccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -74,7 +74,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -102,20 +102,32 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
+              "Title": "UserData.cs",
+              "DocumentMoniker": "C:\\GF\\GameFlow-back\\GameFlow\\Data\\Entities\\UserData.cs",
+              "RelativeDocumentMoniker": "GameFlow\\Data\\Entities\\UserData.cs",
+              "ToolTip": "C:\\GF\\GameFlow-back\\GameFlow\\Data\\Entities\\UserData.cs",
+              "RelativeToolTip": "GameFlow\\Data\\Entities\\UserData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T09:29:17.263Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "UserAmendment.cshtml",
               "DocumentMoniker": "C:\\GF\\GameFlow-back\\GameFlow\\Views\\User\\UserAmendment.cshtml",
               "RelativeDocumentMoniker": "GameFlow\\Views\\User\\UserAmendment.cshtml",
               "ToolTip": "C:\\GF\\GameFlow-back\\GameFlow\\Views\\User\\UserAmendment.cshtml",
               "RelativeToolTip": "GameFlow\\Views\\User\\UserAmendment.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAGAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-28T09:17:28.019Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\GF\\GameFlow-back\\GameFlow\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "GameFlow\\Views\\Home\\Index.cshtml",
@@ -123,12 +135,11 @@
               "RelativeToolTip": "GameFlow\\Views\\Home\\Index.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-28T09:16:57.452Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-28T09:16:57.452Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "UserController.cs",
               "DocumentMoniker": "C:\\GF\\GameFlow-back\\GameFlow\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "GameFlow\\Controllers\\UserController.cs",
@@ -136,25 +147,23 @@
               "RelativeToolTip": "GameFlow\\Controllers\\UserController.cs",
               "ViewState": "AgIAAFgAAAAAAAAAAAAkwLUAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-26T09:55:09.668Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-26T09:55:09.668Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "UserReview.cshtml",
               "DocumentMoniker": "C:\\GF\\GameFlow-back\\GameFlow\\Views\\User\\UserReview.cshtml",
               "RelativeDocumentMoniker": "GameFlow\\Views\\User\\UserReview.cshtml",
               "ToolTip": "C:\\GF\\GameFlow-back\\GameFlow\\Views\\User\\UserReview.cshtml",
               "RelativeToolTip": "GameFlow\\Views\\User\\UserReview.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADkAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAABoAAAAAAAAAAAAQwDkAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-26T09:53:19.622Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-26T09:53:19.622Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "AuthSessionMiddleware.cs",
               "DocumentMoniker": "C:\\GF\\GameFlow-back\\GameFlow\\Middleware\\AuthSessionMiddleware.cs",
               "RelativeDocumentMoniker": "GameFlow\\Middleware\\AuthSessionMiddleware.cs",
@@ -162,12 +171,11 @@
               "RelativeToolTip": "GameFlow\\Middleware\\AuthSessionMiddleware.cs",
               "ViewState": "AgIAABkAAAAAAAAAAAAswDkAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T21:20:00.774Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-27T21:20:00.774Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "DataAccessor.cs",
               "DocumentMoniker": "C:\\GF\\GameFlow-back\\GameFlow\\Data\\DataAccessor.cs",
               "RelativeDocumentMoniker": "GameFlow\\Data\\DataAccessor.cs",
@@ -175,21 +183,19 @@
               "RelativeToolTip": "GameFlow\\Data\\DataAccessor.cs",
               "ViewState": "AgIAAE4AAAAAAAAAAAAtwGEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T21:14:52.569Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-27T21:14:52.569Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "SignUp.cshtml",
               "DocumentMoniker": "C:\\GF\\GameFlow-back\\GameFlow\\Views\\User\\SignUp.cshtml",
               "RelativeDocumentMoniker": "GameFlow\\Views\\User\\SignUp.cshtml",
               "ToolTip": "C:\\GF\\GameFlow-back\\GameFlow\\Views\\User\\SignUp.cshtml",
               "RelativeToolTip": "GameFlow\\Views\\User\\SignUp.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-27T20:31:48.73Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-27T20:31:48.73Z"
             },
             {
               "$type": "Document",
@@ -205,7 +211,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\GF\\GameFlow-back\\GameFlow\\Program.cs",
               "RelativeDocumentMoniker": "GameFlow\\Program.cs",
@@ -214,18 +220,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-27T22:08:32.886Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "UserReviewViewModel.cs",
-              "DocumentMoniker": "C:\\GF\\GameFlow-back\\GameFlow\\Models\\User\\UserReviewViewModel.cs",
-              "RelativeDocumentMoniker": "GameFlow\\Models\\User\\UserReviewViewModel.cs",
-              "ToolTip": "C:\\GF\\GameFlow-back\\GameFlow\\Models\\User\\UserReviewViewModel.cs",
-              "RelativeToolTip": "GameFlow\\Models\\User\\UserReviewViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T21:24:53.909Z"
             },
             {
               "$type": "Document",
@@ -241,7 +235,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\GF\\GameFlow-back\\GameFlow\\Views\\User\\Index.cshtml",
               "RelativeDocumentMoniker": "GameFlow\\Views\\User\\Index.cshtml",
@@ -249,8 +243,7 @@
               "RelativeToolTip": "GameFlow\\Views\\User\\Index.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-27T20:31:52.104Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-27T20:31:52.104Z"
             },
             {
               "$type": "Document",
