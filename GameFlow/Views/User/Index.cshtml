@@ -1,12 +1,19 @@
 ﻿@{
     ViewData["Title"] = "User's Page";
+ 
+    String? UserId = Context.User.Claims
+           .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Sid)?.Value;
+  
 }
 
 <div class="text-center">
     <h1 class="display-4">User's page</h1>
     <br/><br/>
     <h1>Content</h1>
-    <h3><a asp-controller="User" asp-action="SignUp">User's registration</a></h3>
+    @if (UserId == null){
+        <h3><a asp-controller="User" asp-action="SignUp">User's registration</a></h3>
+    }
+    
     <h3><a asp-controller="User" asp-action="UserReview">User's review</a></h3>
     <h3><a asp-controller="User" asp-action="UserAmendment">User's amendment</a></h3>
 </div>

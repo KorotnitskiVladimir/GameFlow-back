@@ -37,22 +37,38 @@ public class DataContext: DbContext // создаем базу данных
         modelBuilder.Entity<UserRole>().HasData(
             new UserRole()
             {
-                Id = "guest", Description = "solely registered user", CanCreate = 0, CanRead = 0, CanUpdate = 0,
+                Id = "guest",
+                Description = "solely registered user",
+                CanCreate = 0,
+                CanRead = 0, 
+                CanUpdate = 0,
                 CanDelete = 0
             },
             new UserRole()
             {
-                Id = "editor", Description = "has authority to edit content", CanCreate = 0, CanRead = 1, CanUpdate = 1,
+                Id = "editor", 
+                Description = "has authority to edit content", 
+                CanCreate = 0,
+                CanRead = 1, 
+                CanUpdate = 1,
                 CanDelete = 0
             },
             new UserRole()
             {
-                Id = "admin", Description = "full access to DB", CanCreate = 1, CanRead = 1, CanUpdate = 1,
+                Id = "admin",
+                Description = "full access to DB",
+                CanCreate = 1,
+                CanRead = 1,
+                CanUpdate = 1,
                 CanDelete = 1
             },
             new UserRole()
             {
-                Id = "moderator", Description = "has authority to block", CanCreate = 0, CanRead = 1, CanUpdate = 0,
+                Id = "moderator",
+                Description = "has authority to block",
+                CanCreate = 0,
+                CanRead = 1,
+                CanUpdate = 0,
                 CanDelete = 1
             });
     }

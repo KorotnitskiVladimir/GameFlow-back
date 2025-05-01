@@ -20,6 +20,8 @@ public class UserSignUpFormModel
     public string Country { get; set; } = null!;
     [FromForm(Name = "user-birthDate")]
     public DateTime BirthDate { get; set; }
-    public string? AvatarUrl { get; set; }
+    [FromForm(Name = "user-avatar")]
+    public string AvatarUrl { get; set; } = null!;
+    [FromForm(Name = "user-about")]
     public string? AboutUser { get; set; }
 }

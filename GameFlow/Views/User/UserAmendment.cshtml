@@ -1,4 +1,27 @@
-﻿<div class="text-center">
+﻿@model GameFlow.Models.User.UserSignUpViewModel
+@{
+    String? UserName = Context.User.Claims
+           .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Name)?.Value;
+    String? UserEmail = Context.User.Claims
+    .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Email)?.Value;
+    String? MobilePhone = Context.User.Claims
+    .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.MobilePhone)?.Value;
+    String? Actor = Context.User.Claims
+    .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Actor)?.Value;
+    String? Dsa = Context.User.Claims
+           .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Dsa)?.Value;
+    String? Country = Context.User.Claims
+    .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Country)?.Value;
+    String? DateOfBirth = Context.User.Claims
+           .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.DateOfBirth)?.Value;
+    String? NameIdentifier = Context.User.Claims
+           .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+    String? Uri = Context.User.Claims
+           .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Uri)?.Value;
+
+
+}
+<div class="text-center">
     <h1 class="display-4">User's amendment</h1>
 </div>
 <div class="row">
@@ -6,25 +29,25 @@
         <h2>Basic information</h2>
         <form id="user-edit-form" enctype="multipart/form-data">
            
-            Full name:&nbsp&nbsp <input name="user-name" /><br /><br />
-            Password:&nbsp&nbsp <input name="user-password" type="password" minlength="6">&nbsp&nbsp
-            Repeat password: &nbsp&nbsp<input name="repeat-password" type="password" minlength="6"><br /><br />
-            Phone:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input name="user-phone" placeholder="+" /><br /><br />
-            Email:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input name="user-email" type="email" /><br /><br />
-            Country:&nbsp&nbsp&nbsp&nbsp&nbsp<input name="user-country" /><br /><br /><br />
+            Full name:&nbsp&nbsp <input name="user-name" value=@UserName /><br /><br />
+            Phone:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input name="user-phone" placeholder="+" value=@MobilePhone /><br /><br />
+            Email:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input name="user-email" type="email" value=@UserEmail /><br /><br />
+            Country:&nbsp&nbsp&nbsp&nbsp&nbsp<input name="user-country" value=@Country /><br /><br /><br />
+
            
-            <button type="submit">Save</button>
+           
+            <button type="submit">Save changes</button>
         </form>
     </div>
     <div class="col">
         <h2>Supplement</h2>
         <form id="user-supplement-form" enctype="multipart/form-data">
 
-            AvatarPhoto: &nbsp&nbsp<input name="avatar-url" type="file" /><br /><br />
-            AboutUser:  &nbsp&nbsp&nbsp&nbsp&nbsp<textarea name="about-user" style="height:180px;width:65%;"></textarea><br /><br /><br />
+            AvatarPhoto: &nbsp&nbsp<input name="user-avatar" type="file" /><br /><br />
+            AboutUser:  &nbsp&nbsp&nbsp&nbsp&nbsp<textarea name="user-about" style="height:150px;width:65%;" value=@NameIdentifier></textarea><br /><br /><br />
            
 
-            <button type="submit">Save</button>
+            <button type="submit">Save changes</button>
         </form>
     </div>
 </div>

@@ -1,4 +1,7 @@
-﻿const elem = document.getElementById('message');
+﻿
+
+
+const elem = document.getElementById('message');
 document.addEventListener('submit', e => {
     const form = e.target;
     if(form.id == "auth-modal-form") {
@@ -45,6 +48,7 @@ document.addEventListener('submit', e => {
         const country = document.querySelector('[name="user-country"]').value;
         const birthDate = document.querySelector('[name="user-birthDate"]').value
         console.log(form)
+        
         // Серж, тут перед тем как фетч делать, нужно добавить проверку заполнения полей
         fetch("/User/Register", {
             method: 'POST',
@@ -59,4 +63,24 @@ document.addEventListener('submit', e => {
                 }
             });
     }
+
+//    if (form.id == "user-edit-form") {
+//        e.stopPropagation();
+//        e.preventDefault();
+//        const login = document.querySelector('[name="user-login"]').value;
+//        console.log(login);
+//        fetch('/User/Change', {
+//            method: 'POST',
+//            headers: {
+//                'Content-Type': 'application/x-www-form-urlencoded'
+//            },
+//            body:`${new FormData(form)} ,login=${login}`
+//        }).then(r => r.json()).then(j => {
+//            if (j.status == 200) {
+//                console.log(j.message);
+//                alert("changes successfully");
+//            }
+//        });
+//    }
 })
+

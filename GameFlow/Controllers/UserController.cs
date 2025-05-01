@@ -22,7 +22,7 @@ public class UserController : Controller
         _saltGenerator = saltGenerator;
         _dataAccessor = dataAccessor;
     }
-    
+
     public IActionResult Index()
     {
         return View();
@@ -34,7 +34,7 @@ public class UserController : Controller
         {
             FormModel = new()
         };
-        
+
         return View(viewModel);
     }
 
@@ -95,7 +95,7 @@ public class UserController : Controller
             {
                 errors[nameof(formModel.UserLogin)] = "Login required";
             }
-            
+
             if (!string.IsNullOrEmpty(formModel.UserLogin))
             {
                 if (_dataContext.UsersData.FirstOrDefault(u => u.Login == formModel.UserLogin) != null)
@@ -160,7 +160,7 @@ public class UserController : Controller
 
         return errors;
     }
-    
+
     public IActionResult Signin()
     {
         AccessToken accessToken;
@@ -178,11 +178,53 @@ public class UserController : Controller
 
     public ViewResult UserReview()
     {
-        return View();
+        UserSignUpViewModel viewModel = new()
+        {
+            FormModel = new()
+        };
+
+        return View(viewModel);
     }
     public ViewResult UserAmendment()
     {
-        return View();
+        UserSignUpViewModel viewModel = new()
+        {
+            FormModel = new()
+        };
+
+        return View(viewModel);
     }
 
+    //[HttpPost]
+    //public JsonResult Change(UserSignUpFormModel? formModel, [FromForm] String login)
+    //{
+    //    if (formModel == null)
+    //    {
+    //        return Json(new { status = 400, message = "Form data is missing" });
+    //    }
+
+    //    UserData? user = _dataContext.UsersData
+    //        .FirstOrDefault(u => u.Login == login);
+    //    UserData userData = new()
+    //    {
+    //        UserName = formModel.UserName,
+    //        Email = formModel.UserEmail,
+    //        Phone = formModel.UserPhone,
+    //        Country = formModel.Country,
+    //    };
+    //    if (user != null)
+    //    {
+    //        user.UserName = userData.UserName;
+    //        user.Email = userData.Email ;
+    //        user.Phone = userData.Phone ;
+    //        user.Country = userData.Country ;
+    //    }
+    //    else
+    //    {
+    //        return Json(new { status = 404, message = "User not found" });
+    //    }
+
+    //    _dataContext.SaveChanges();
+    //    return Json(formModel);
+    //}
 }
