@@ -32,6 +32,16 @@ public class DataContext: DbContext // создаем базу данных
 
         modelBuilder.Entity<AccessToken>().HasKey(t => t.Jti);
 
+        modelBuilder.Entity<AccessToken>()
+            .HasOne(t => t.User)
+            .WithMany()
+            .HasForeignKey(t => t.Aud);
+
+        modelBuilder.Entity<AccessToken>()
+            .HasOne(t => t.UserAccess)
+            .WithMany()
+            .HasForeignKey(t => t.Sub);
+
         modelBuilder.Entity<UserRole>().HasData(
             new UserRole()
             {

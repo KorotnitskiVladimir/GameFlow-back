@@ -41,7 +41,7 @@ builder.Services.AddScoped<DataAccessor>();
    // options.AddPolicy("CorsPolicy", policy => { policy.AllowAnyOrigin(); }));
 
 builder.Services.AddCors(options =>
-    options.AddDefaultPolicy(policy => { policy.AllowAnyOrigin(); }));
+    options.AddDefaultPolicy(policy => { policy.AllowAnyOrigin().AllowAnyHeader(); }));
 
 var app = builder.Build();
 
@@ -59,6 +59,7 @@ app.UseCors();
 app.UseAuthorization();
 app.UseSession(); // запускаем сессию
 app.UseAuthSession();
+app.UseAuthToken();
 app.MapStaticAssets();
 
 app.MapControllerRoute(

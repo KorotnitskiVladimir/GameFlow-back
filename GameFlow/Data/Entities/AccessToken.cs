@@ -1,4 +1,6 @@
-﻿namespace GameFlow.Data;
+﻿using System.Text.Json.Serialization;
+
+namespace GameFlow.Data;
 
 public class AccessToken
 {
@@ -8,5 +10,9 @@ public class AccessToken
     public DateTime Iat { get; set; } = DateTime.Now;
     public DateTime? Nbf { get; set; } 
     public DateTime Exp { get; set; }
-    public string? Iss { get; set; } 
+    public string? Iss { get; set; }
+
+    [JsonIgnore] public UserData User { get; set; } = null!;
+
+    [JsonIgnore] public UserAccess UserAccess { get; set; } = null!;
 }

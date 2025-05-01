@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Text;
 using GameFlow.Data;
 using GameFlow.Models;
 using GameFlow.Models.User;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using GameFlow.Services.Date;
 using GameFlow.Services.Salt;
+using Microsoft.AspNetCore.Authentication;
 using Syncfusion.EJ2.PivotView;
 
 namespace GameFlow.Controllers;
@@ -19,14 +21,16 @@ public class ApiUserController : ControllerBase
     private readonly IKDFService _kdfService;
     private readonly ISaltGeneratorService _saltGenerator;
     private readonly IAgeCalculatorService _ageCalculator;
+    private readonly DataAccessor _dataAccessor;
 
     public ApiUserController(DataContext dataContext, IKDFService kdfService, ISaltGeneratorService saltGenerator, 
-        IAgeCalculatorService ageCalculator)
+        IAgeCalculatorService ageCalculator, DataAccessor dataAccessor)
     {
         _dataContext = dataContext;
         _kdfService = kdfService;
         _saltGenerator = saltGenerator;
         _ageCalculator = ageCalculator;
+        _dataAccessor = dataAccessor;
     }
     
     [HttpPost]
@@ -45,7 +49,7 @@ public class ApiUserController : ControllerBase
             res.Status = new()
             {
                 IsOk = false,
-                Phrase = "Date not received"
+                Phrase = "Data not received"
             };
             res.Data = null;
         }
@@ -166,5 +170,67 @@ public class ApiUserController : ControllerBase
 
         return errors;
     }
-    
+
+    [HttpGet("jti")]
+    public RestResponse Authenticate()
+    {
+        var res = new RestResponse()
+        {
+            Service = "Api User Authentication",
+            DataType = "object",
+            CacheTime = 600,
+        };
+        try
+        {
+            res.Data = _dataAccessor.Authenticate(Request);
+        }
+        catch (Win32Exception ex)
+        {
+            res.Status = new()
+            {
+                IsOk = false,
+                Code = ex.ErrorCode,
+                Phrase = ex.Message
+            };
+            res.Data = null;
+        }
+
+        return res;
+    }
+
+    [HttpGet]
+    public RestResponse AuthenticateJwt()
+    {
+        var res = new RestResponse()
+        {
+            Service = "Api User Authentication",
+            DataType = "object",
+            CacheTime = 600,
+        };
+        try
+        {
+            string header = Base64UrlTextEncoder.Encode(
+                Encoding.UTF8.GetBytes("{  \"alg\": \"HS256\",  \"typ\": \"JWT\"}"));
+            string payload = Base64UrlTextEncoder.Encode(
+                Encoding.UTF8.GetBytes(
+                    JsonSerializer.Serialize(_dataAccessor.Authenticate(Request))));
+            string data = header + "." + payload;
+            string signature = Base64UrlTextEncoder.Encode(System.Security.Cryptography.HMACSHA256.HashData(
+                Encoding.UTF8.GetBytes("secret"),
+                Encoding.UTF8.GetBytes(data)));
+            res.Data = data + "." + signature;
+        }
+        catch (Win32Exception e)
+        {
+            res.Status = new()
+            {
+                IsOk = false,
+                Code = e.ErrorCode,
+                Phrase = e.Message
+            };
+            res.Data = null;
+        }
+
+        return res;
+    }
 }

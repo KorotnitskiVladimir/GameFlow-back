@@ -90,4 +90,45 @@ public class DataAccessor
             return accessToken;
         }
     }
+
+    public AccessToken Authorize(HttpRequest request)
+    {
+        string authHeader = request.Headers.Authorization.ToString();
+        if (string.IsNullOrEmpty(authHeader))
+        {
+            throw new Win32Exception(401, "Authorization header required");
+        }
+
+        string scheme = "Bearer ";
+        if (!authHeader.StartsWith(scheme))
+        {
+            throw new Win32Exception(401, $"Authorization scheme must be {scheme}");
+        }
+
+        string credentials = authHeader[scheme.Length..];
+        Guid jti;
+        try
+        {
+            jti = Guid.Parse(credentials);
+        }
+        catch
+        {
+            throw new Win32Exception(401, "Authorization credentials invalid formatted");
+        }
+
+        AccessToken? accessToken = _dataContext.AccessTokens.Include(at => at.User)
+            .FirstOrDefault(at => at.Jti == jti);
+
+        if (accessToken == null)
+        {
+            throw new Win32Exception(401, "Bearer credentials rejected");
+        }
+
+        if (accessToken.Exp < DateTime.Now)
+        {
+            throw new Win32Exception(401, "Bearer credentials expired");
+        }
+
+        return accessToken;
+    }
 }
