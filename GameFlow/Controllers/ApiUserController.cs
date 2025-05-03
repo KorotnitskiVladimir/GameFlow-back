@@ -6,6 +6,7 @@ using GameFlow.Models.User;
 using GameFlow.Services.KDF;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using GameFlow.Middleware;
 using GameFlow.Services.Date;
 using GameFlow.Services.Salt;
 using Microsoft.AspNetCore.Authentication;
@@ -231,6 +232,31 @@ public class ApiUserController : ControllerBase
             res.Data = null;
         }
 
+        return res;
+    }
+    
+    [HttpGet("profile")]
+    public RestResponse Profile()
+    {
+        var res = new RestResponse()
+        {
+            Service = "Api User Profile",
+            DataType = "object",
+            CacheTime = 600
+        };
+        if (HttpContext.User.Identity?.IsAuthenticated ?? false)
+        {
+            res.Data = (HttpContext.Items["AccessToken"] as AccessToken)?.User;
+        }
+        else
+        {
+            res.Status = new()
+            {
+                IsOk = false,
+                Code = 401,
+                Phrase = HttpContext.Items[nameof(AuthTokenMiddleware)]?.ToString() ?? ""
+            };
+        }
         return res;
     }
 }
