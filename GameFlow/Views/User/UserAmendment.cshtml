@@ -24,30 +24,24 @@
 <div class="text-center">
     <h1 class="display-4">User's amendment</h1>
 </div>
+<form id="user-edit-form" enctype="multipart/form-data">
 <div class="row">
     <div class="col">
         <h2>Basic information</h2>
-        <form id="user-edit-form" enctype="multipart/form-data">
-           
-            Full name:&nbsp&nbsp <input name="user-name" value=@UserName /><br /><br />
+        
+            Login:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input name="user-login"  value=@Actor /><br /><br />
+            Full name:&nbsp&nbsp <input name="user-name" id="user-name" value=@Actor /><br /><br />
             Phone:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input name="user-phone" placeholder="+" value=@MobilePhone /><br /><br />
-            Email:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input name="user-email" type="email" value=@UserEmail /><br /><br />
-            Country:&nbsp&nbsp&nbsp&nbsp&nbsp<input name="user-country" value=@Country /><br /><br /><br />
-
-           
-           
+            Email:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input name="user-email" type="email"  value=@UserEmail /><br /><br />
+            Country:&nbsp&nbsp&nbsp&nbsp <input name="user-country"  value=@Country /><br /><br />
             <button type="submit">Save changes</button>
-        </form>
     </div>
     <div class="col">
         <h2>Supplement</h2>
-        <form id="user-supplement-form" enctype="multipart/form-data">
-
-            AvatarPhoto: &nbsp&nbsp<input name="user-avatar" type="file" /><br /><br />
+            AvatarPhoto: &nbsp&nbsp<input name="user-avatar" type="file" value=@Uri /><br /><br />
             AboutUser:  &nbsp&nbsp&nbsp&nbsp&nbsp<textarea name="user-about" style="height:150px;width:65%;" value=@NameIdentifier></textarea><br /><br /><br />
-           
-
             <button type="submit">Save changes</button>
-        </form>
+         
     </div>
 </div>
+</form>

@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel;
+using System.Text.Json;
 using GameFlow.Data;
 using GameFlow.Models.User;
 using GameFlow.Services.KDF;
 using GameFlow.Services.Salt;
 using Microsoft.AspNetCore.Mvc;
+using Syncfusion.EJ2.Linq;
 
 namespace GameFlow.Controllers;
 
@@ -195,36 +197,39 @@ public class UserController : Controller
         return View(viewModel);
     }
 
-    //[HttpPost]
-    //public JsonResult Change(UserSignUpFormModel? formModel, [FromForm] String login)
-    //{
-    //    if (formModel == null)
-    //    {
-    //        return Json(new { status = 400, message = "Form data is missing" });
-    //    }
+    [HttpPut]
+    public JsonResult Change([FromQuery] string login, [FromQuery] string name, [FromQuery] string phone, 
+                             [FromQuery] string email, [FromQuery] string country, [FromQuery] string avatar,
+                             [FromQuery] string aboutuser, [FromQuery] string uaId)
+    {
+        UserAccess? userAccess = _dataContext.UserAccesses
+            .FirstOrDefault(u => u.Id.ToString() == uaId);
 
-    //    UserData? user = _dataContext.UsersData
-    //        .FirstOrDefault(u => u.Login == login);
-    //    UserData userData = new()
-    //    {
-    //        UserName = formModel.UserName,
-    //        Email = formModel.UserEmail,
-    //        Phone = formModel.UserPhone,
-    //        Country = formModel.Country,
-    //    };
-    //    if (user != null)
-    //    {
-    //        user.UserName = userData.UserName;
-    //        user.Email = userData.Email ;
-    //        user.Phone = userData.Phone ;
-    //        user.Country = userData.Country ;
-    //    }
-    //    else
-    //    {
-    //        return Json(new { status = 404, message = "User not found" });
-    //    }
+        if (userAccess != null)
+        {
+            UserData? user = _dataContext.UsersData
+                .FirstOrDefault(u => u.Id == userAccess.UserId);
 
-    //    _dataContext.SaveChanges();
-    //    return Json(formModel);
-    //}
+            if (user != null)
+            {
+                user.Login = login;
+                user.UserName = name;
+                user.Phone = phone;
+                user.Email = email;
+                user.Country = country;
+                user.AvatarUrl = avatar;
+                user.AboutUser = aboutuser;
+            }
+            if (login != null)
+            {
+                userAccess.Login = login;
+            }
+        }
+        else
+        {
+            return Json(new { status = 404, message = "User access not found" });
+        }
+        _dataContext.SaveChanges();
+        return Json(new { status = 200, message = "Modified" });
+    }
 }

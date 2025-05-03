@@ -64,23 +64,35 @@ document.addEventListener('submit', e => {
             });
     }
 
-//    if (form.id == "user-edit-form") {
-//        e.stopPropagation();
-//        e.preventDefault();
-//        const login = document.querySelector('[name="user-login"]').value;
-//        console.log(login);
-//        fetch('/User/Change', {
-//            method: 'POST',
-//            headers: {
-//                'Content-Type': 'application/x-www-form-urlencoded'
-//            },
-//            body:`${new FormData(form)} ,login=${login}`
-//        }).then(r => r.json()).then(j => {
-//            if (j.status == 200) {
-//                console.log(j.message);
-//                alert("changes successfully");
-//            }
-//        });
-//    }
+    if (form.id == "user-edit-form") {
+        e.preventDefault();
+        const elem = document.querySelector('[data-auth-ua-id]');
+        if (!elem) {
+            alert('Увійдіть до системи');
+            return;
+        }
+        const uaId = elem.getAttribute('data-auth-ua-id');
+        console.log(uaId);
+
+        const login = document.querySelector('[name="user-login"]').value;
+        const name = document.querySelector('[name="user-name"]').value;
+        const phone = document.querySelector('[name="user-phone"]').value;
+        const email = document.querySelector('[name="user-email"]').value;
+        const country = document.querySelector('[name="user-country"]').value;
+        const avatar = document.querySelector('[name="user-avatar"]').files[0];
+        const aboutuser = document.querySelector('[name="user-about"]').value;
+
+        fetch(`/User/Change?login=${login}&name=${name}
+                &phone=${phone}&email=${email}&country=${country}&avatar=${avatar}   
+                &aboutuser=${aboutuser}&uaId=${uaId}`, {
+            method: 'PUT',
+        }).then(r => r.json()).then(j => {
+            if (j.status == 200) {
+                console.log(j.message);
+                alert("changes successfully");
+            }
+        });
+    }
 })
+
 
