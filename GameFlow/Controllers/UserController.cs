@@ -84,6 +84,7 @@ public class UserController : Controller
         }
         else
         {
+
             return Json(new { status = 401, message = errors.Values });
         }
     }
@@ -198,13 +199,17 @@ public class UserController : Controller
     }
 
     [HttpPut]
-    public JsonResult Change([FromQuery] string login, [FromQuery] string name, [FromQuery] string phone, 
-                             [FromQuery] string email, [FromQuery] string country, [FromQuery] string avatar,
-                             [FromQuery] string aboutuser, [FromQuery] string uaId)
+    public JsonResult Change([FromQuery] string login, 
+                             [FromQuery] string name, 
+                             [FromQuery] string phone, 
+                             [FromQuery] string email,
+                             [FromQuery] string country, 
+                             [FromQuery] string avatar,
+                             [FromQuery] string aboutuser, 
+                             [FromQuery] string uaId)
     {
         UserAccess? userAccess = _dataContext.UserAccesses
             .FirstOrDefault(u => u.Id.ToString() == uaId);
-
         if (userAccess != null)
         {
             UserData? user = _dataContext.UsersData
