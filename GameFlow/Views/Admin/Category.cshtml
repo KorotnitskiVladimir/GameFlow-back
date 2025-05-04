@@ -1,0 +1,18 @@
+﻿@model GameFlow.Models.Admin.CategoryFormViewModel
+@{
+    ViewData["Title"] = "Category page";
+}
+<div class="text-center">
+    <h1 class="display-4">Add category</h1>
+</div>
+
+<div class="col">
+    <form id="add-category-form" enctype="multipart/form-data">
+        Name: <input name="category-name"/><br/>
+        Parent: <input name="parent-category"/>
+        Description: <textarea name="category-description"></textarea><br/>
+        Address: <input name="category-slug"/><br/>
+        Picture: <input name="category-image" type="file"/><br/>
+        <button type="submit">Add category</button>
+    </form>
+</div>

@@ -83,7 +83,7 @@ public class DataAccessor
                 Iat = DateTime.Now,
                 Nbf = null,
                 Exp = DateTime.Now.AddMinutes(10),
-                Iss = "ASP"
+                Iss = "GameFlow"
             };
             _dataContext.AccessTokens.Add(accessToken);
             _dataContext.SaveChanges();
@@ -130,5 +130,18 @@ public class DataAccessor
         }
 
         return accessToken;
+    }
+
+    public List<Category> AllCategories()
+    {
+        var categories = _dataContext.Categories.Where(c => c.DeletedAt == null)
+            .AsNoTracking()
+            .ToList();
+        foreach (var category in categories)
+        {
+            category.ImageUrl = ImagePath + category.ImageUrl;
+        }
+
+        return categories;
     }
 }

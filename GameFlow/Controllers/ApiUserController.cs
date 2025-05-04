@@ -172,7 +172,7 @@ public class ApiUserController : ControllerBase
         return errors;
     }
 
-    [HttpGet("jti")]
+    [HttpGet]
     public RestResponse Authenticate()
     {
         var res = new RestResponse()
@@ -190,7 +190,7 @@ public class ApiUserController : ControllerBase
             res.Status = new()
             {
                 IsOk = false,
-                Code = ex.ErrorCode,
+                Code = ex.HResult,
                 Phrase = ex.Message
             };
             res.Data = null;
@@ -199,7 +199,8 @@ public class ApiUserController : ControllerBase
         return res;
     }
 
-    [HttpGet]
+    
+    [HttpGet("jwt")]
     public RestResponse AuthenticateJwt()
     {
         var res = new RestResponse()
@@ -226,7 +227,7 @@ public class ApiUserController : ControllerBase
             res.Status = new()
             {
                 IsOk = false,
-                Code = e.ErrorCode,
+                Code = e.HResult,
                 Phrase = e.Message
             };
             res.Data = null;
@@ -234,6 +235,7 @@ public class ApiUserController : ControllerBase
 
         return res;
     }
+    
     
     [HttpGet("profile")]
     public RestResponse Profile()
@@ -256,6 +258,7 @@ public class ApiUserController : ControllerBase
                 Code = 401,
                 Phrase = HttpContext.Items[nameof(AuthTokenMiddleware)]?.ToString() ?? ""
             };
+            res.Data = null;
         }
         return res;
     }

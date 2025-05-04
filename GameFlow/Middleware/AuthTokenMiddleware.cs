@@ -1,6 +1,8 @@
 ﻿using GameFlow.Data;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using Azure.Core;
+using System.ComponentModel;
 
 namespace GameFlow.Middleware;
 
@@ -78,7 +80,7 @@ public class AuthTokenMiddleware
                 context.Items.Add("AccessToken", accessToken);
             }
         }
-        context.Items.Add(nameof(AuthSessionMiddleware), errorMessage);
+        context.Items.Add(nameof(AuthTokenMiddleware), errorMessage);
         await _next(context);
     }
 }

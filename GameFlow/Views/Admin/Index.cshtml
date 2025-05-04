@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Admin's Page";
+    string? canCreate = Context.User.Claims.FirstOrDefault(c => c.Type == "CanCreate")?.Value;
+}
+
+@if(canCreate == "1")
+{
+    <div class="text-center">
+        <h1 class="display-4">Admin's page</h1>
+        <br/><br/>
+        <h1>Content</h1>
+        <h3><a asp-controller="Admin" asp-action="Category">Add Category</a></h3>
+        <h3><a asp-controller="Admin" asp-action="">Amend Category</a></h3>
+        <h3><a asp-controller="Admin" asp-action="">Add Product</a></h3>
+        <h3><a asp-controller="Admin" asp-action="">Add Action</a></h3>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <h3 class="display-4">Should be logged as admin to view content</h3>
+    </div>
+}

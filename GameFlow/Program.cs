@@ -23,7 +23,7 @@ builder.Services.AddSingleton<IAgeCalculatorService, AgeCalculator>();
 builder.Services.AddDistributedMemoryCache(); // Включаем сессию
 builder.Services.AddSession(options =>
     {
-        options.IdleTimeout = TimeSpan.FromSeconds(10);
+        options.IdleTimeout = TimeSpan.FromMinutes(10);
         options.Cookie.HttpOnly = true;
         options.Cookie.IsEssential = true;
     }
@@ -38,7 +38,7 @@ builder.Services.AddDbContext<DataContext>(
 builder.Services.AddScoped<DataAccessor>();
 
 //builder.Services.AddCors(options =>
-   // options.AddPolicy("CorsPolicy", policy => { policy.AllowAnyOrigin(); }));
+   //options.AddPolicy("CorsPolicy", policy => { policy.AllowAnyOrigin().AllowAnyHeader(); }));
 
 builder.Services.AddCors(options =>
     options.AddDefaultPolicy(policy => { policy.AllowAnyOrigin().AllowAnyHeader(); }));
@@ -54,6 +54,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseRouting();
 app.UseCors();
 app.UseAuthorization();
@@ -66,6 +67,10 @@ app.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
+
+//using var scope = app.Services.CreateScope();
+//await using var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();
+//await dataContext.Database.MigrateAsync();
 
 
 app.Run();

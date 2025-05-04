@@ -8,6 +8,7 @@ public class DataContext: DbContext // создаем базу данных
     public DbSet<UserRole> UserRoles { get; private set; }
     public DbSet<UserAccess> UserAccesses { get; private set; }
     public DbSet<AccessToken> AccessTokens { get; private set; }
+    public DbSet<Category> Categories { get; private set; }
 
     public DataContext(DbContextOptions options) : base(options) {}
 
@@ -41,6 +42,15 @@ public class DataContext: DbContext // создаем базу данных
             .HasOne(t => t.UserAccess)
             .WithMany()
             .HasForeignKey(t => t.Sub);
+
+        modelBuilder.Entity<Category>()
+            .HasIndex(c => c.Slug)
+            .IsUnique();
+
+        modelBuilder.Entity<Category>()
+            .HasOne(c => c.ParentCategory)
+            .WithMany()
+            .HasForeignKey(c => c.ParentId);
 
         modelBuilder.Entity<UserRole>().HasData(
             new UserRole()

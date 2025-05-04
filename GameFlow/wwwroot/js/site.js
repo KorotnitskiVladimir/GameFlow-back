@@ -53,9 +53,26 @@ document.addEventListener('submit', e => {
             .then(j => {
                 if (j.status == 401) {
                     console.log(j.message);
-                    window.alert("registered successfully");
                 } else {
                     window.location.reload();
+                    window.alert("registered successfully");
+                }
+            });
+    }
+    if (form.id == "add-category-form")
+    {
+        e.preventDefault();
+        fetch("/Admin/AddCategory", {
+            method: 'POST',
+            body: new FormData(form)
+        }).then(r => r.json())
+            .then(j => {
+                if (j.status == 401){
+                    console.log(j.message);
+                }
+                else {
+                    window.location.reload();
+                    window.alert("Category added successfully");
                 }
             });
     }
