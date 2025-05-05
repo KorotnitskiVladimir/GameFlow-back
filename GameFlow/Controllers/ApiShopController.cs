@@ -14,7 +14,9 @@ public class ApiShopController : ControllerBase
     {
         _dataAccessor = dataAccessor;
     }
-    public RestResponse Categories()
+    
+    [HttpGet("allCategories")]
+    public RestResponse GetAllCategories()
     {
         return new()
         {
@@ -22,6 +24,18 @@ public class ApiShopController : ControllerBase
             DataType = "array",
             CacheTime = 600,
             Data = _dataAccessor.AllCategories()
+        };
+    }
+
+    [HttpGet("categoryById {id}")]
+    public RestResponse GetSelectedCategory(string id)
+    {
+        return new()
+        {
+            Service = "Api Categories",
+            DataType = "object",
+            CacheTime = 600,
+            Data = _dataAccessor.GetCategory(id)
         };
     }
 }

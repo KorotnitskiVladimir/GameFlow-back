@@ -144,4 +144,17 @@ public class DataAccessor
 
         return categories;
     }
+
+    public Category? GetCategory(string slug)
+    {
+        // дописать include products + asnotracking
+        var category = _dataContext.Categories.FirstOrDefault(c => c.Slug == slug);
+        if (category != null)
+        {
+            category.ImageUrl = ImagePath + category.ImageUrl;
+            // тоже самое для фото продуктов
+        }
+
+        return category;
+    }
 }
