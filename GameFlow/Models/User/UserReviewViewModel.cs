@@ -2,8 +2,7 @@
 
 namespace GameFlow.Models.User;
 
-public class UserSignUpViewModel
+public class UserReviewViewModel
 {
     public UserData? User { get; set; }
-    
 }

@@ -1,0 +1,72 @@
+﻿@using System.Security.Claims
+@model GameFlow.Models.User.UserSignUpViewModel
+@{
+    /*
+    String? UserName = Context.User.Claims
+           .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Name)?.Value;
+    String? UserEmail = Context.User.Claims
+    .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Email)?.Value;
+    String? MobilePhone = Context.User.Claims
+    .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.MobilePhone)?.Value;
+    String? Actor = Context.User.Claims
+    .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Actor)?.Value;
+    String? Dsa = Context.User.Claims
+           .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Dsa)?.Value;
+    String? Country = Context.User.Claims
+    .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Country)?.Value;
+    String? DateOfBirth = Context.User.Claims
+           .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.DateOfBirth)?.Value;
+    String? NameIdentifier = Context.User.Claims
+           .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+    String? Uri = Context.User.Claims
+           .FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Uri)?.Value;
+           */
+    //string? userId = Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Sid)?.Value;
+}
+@if (Model.User != null)
+{
+    <div class="text-center">
+        <h1 class="display-4">User's review</h1>
+    </div>
+    <div class="row">
+        <div class="col">
+
+
+            UserName:&nbsp&nbsp @Model.User.UserName<br />
+            Login:&nbsp&nbsp @Model.User.Login<br />
+            Email: &nbsp&nbsp @Model.User.Email<br />
+            Phone:&nbsp&nbsp @Model.User.Phone<br />
+            Country:&nbsp&nbsp @Model.User.Country<br />
+            BirthDate:&nbsp&nbsp @Model.User.BirthDate<br />
+            RegDate:&nbsp&nbsp @Model.User.RegDate<br />
+   	
+        </div>
+        <div class="col">
+
+            @if (Model.User.AvatarUrl != null)
+            {
+                <img src="@Model.User.AvatarUrl" alt="Avatar" style="width: 100px; height: 100px;" />
+            }
+            else
+            {
+                <img src="~/images/default-avatar.png" alt="Default Avatar" style="width: 100px; height: 100px;" />
+            }
+       
+        
+            @if (Model.User.AboutUser != null)
+            {
+                <div class="col">
+                    AboutUser:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp @Model.User.AboutUser<br />
+                </div>
+            }
+        
+        
+       
+
+        </div>
+        <br />
+        <botton class=" btn" >
+            <a asp-controller="User" asp-action="">Edit</a>
+        </botton>
+    </div>
+} 

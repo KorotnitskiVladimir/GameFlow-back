@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Security.Claims;
 using GameFlow.Data;
 using GameFlow.Models.User;
 using GameFlow.Services.Date;
@@ -36,7 +37,7 @@ public class UserController : Controller
     {
         UserSignUpViewModel viewModel = new()
         {
-            FormModel = new()
+            User = new()
         };
         
         return View(viewModel);
@@ -179,4 +180,70 @@ public class UserController : Controller
         HttpContext.Session.SetString("userAccessId", accessToken.Sub.ToString());
         return Json(new { status = 200, message = "OK" });
     }
+    
+    
+    public ViewResult UserReview()
+    {
+        var userAccess =
+            _dataContext.UserAccesses.FirstOrDefault(ua =>
+                ua.Id.ToString() == HttpContext.Session.GetString("userAccessId"));
+        UserSignUpViewModel viewModel = new()
+        {
+            User = _dataContext.UsersData.FirstOrDefault(u => u.Id == userAccess.UserId)
+        };
+
+        return View(viewModel);
+    }
+    /*
+    public ViewResult UserAmendment()
+    {
+        UserSignUpViewModel viewModel = new()
+        {
+            FormModel = new()
+        };
+
+        return View(viewModel);
+    }
+
+    [HttpPut]
+    public JsonResult Change([FromQuery] string login, 
+                             [FromQuery] string name, 
+                             [FromQuery] string phone, 
+                             [FromQuery] string email,
+                             [FromQuery] string country, 
+                             [FromQuery] string avatar,
+                             [FromQuery] string aboutuser, 
+                             [FromQuery] string uaId)
+    {
+        UserAccess? userAccess = _dataContext.UserAccesses
+            .FirstOrDefault(u => u.Id.ToString() == uaId);
+        if (userAccess != null)
+        {
+            UserData? user = _dataContext.UsersData
+                .FirstOrDefault(u => u.Id == userAccess.UserId);
+
+            if (user != null)
+            {
+                user.Login = login;
+                user.UserName = name;
+                user.Phone = phone;
+                user.Email = email;
+                user.Country = country;
+                user.AvatarUrl = avatar;
+                user.AboutUser = aboutuser;
+            }
+            if (login != null)
+            {
+                userAccess.Login = login;
+            }
+        }
+        else
+        {
+            return Json(new { status = 404, message = "User access not found" });
+        }
+        _dataContext.SaveChanges();
+        return Json(new { status = 200, message = "Modified" });
+    }
+    */
+    
 }
