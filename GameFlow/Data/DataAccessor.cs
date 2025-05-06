@@ -19,7 +19,7 @@ public class DataAccessor
     }
 
     private string ImagePath => 
-        $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}/Shop/Image";
+        $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}/Admin/Image/";
     
     public AccessToken Authenticate(HttpRequest Request)
     {

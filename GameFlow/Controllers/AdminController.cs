@@ -19,6 +19,11 @@ public class AdminController : Controller
         _dataContext = dataContext;
         _storageService = storageService;
     }
+    
+    public FileResult Image([FromRoute] string id)
+    {
+        return File(System.IO.File.ReadAllBytes(_storageService.GetRealPath(id)), "image/jpeg");
+    }
     public IActionResult Index()
     {
         string? canCreate = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "CanCreate")?.Value;

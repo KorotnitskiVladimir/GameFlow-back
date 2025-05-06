@@ -12,12 +12,10 @@ public class UserData
     public string? AboutUser { get; set; }
     public DateTime BirthDate { get; set; }
     public DateTime RegDate { get; set; }
-    // Добавить уже:
-    // - список купленных продуктов
-    // - ачивки?
-    //
-    // Можно добавить в диплом:
-    // - настройки приватности
-    // - инвентарь с ништяками
+    // Добавить:
+    // отдельный класс Library (ID + ссылка на UserId). в Library коллекция Library Items (Product, PurchasedAt,
+    // TimePlayed, <Achievements>, <Reviews>
+    // или сделать "инвентарь", в котором будет библиотека и всякие значки, картинки, фоны и т.п. Уровень пользователя
+    // тоже можно привязать к инвентарю
 
 }
