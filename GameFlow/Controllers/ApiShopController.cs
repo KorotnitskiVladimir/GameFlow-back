@@ -27,7 +27,8 @@ public class ApiShopController : ControllerBase
         };
     }
 
-    [HttpGet("categoryById {id}")]
+    [HttpGet("categoryById" + "{id}")]
+
     public RestResponse GetSelectedCategory(string id)
     {
         return new()
