@@ -12,5 +12,6 @@ public record Category
     public string ImageUrl { get; set; } = null!;
     public DateTime? DeletedAt { get; set; }
     [JsonIgnore] public Category? ParentCategory { get; set; }
-    // продукты
+    
+    public List<Product>? Products { get; set; }
 }

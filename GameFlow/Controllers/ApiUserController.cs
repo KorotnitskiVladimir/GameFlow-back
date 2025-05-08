@@ -272,43 +272,17 @@ public class ApiUserController : ControllerBase
             DataType = "object",
             CacheTime = 600
         };
-        if (!string.IsNullOrEmpty(input))
+        if (HttpContext.User.Identity?.IsAuthenticated == true)
         {
-            string[] temp = input.Split(',', 4);
-            string name = temp[0];
-            string phone = temp[1];
-            string country = temp[2];
-            string about = temp[3];
-            if (HttpContext.User.Identity?.IsAuthenticated == true)
+            var user = _dataContext.UsersData
+                .FirstOrDefault(ud => ud.Id ==
+                                      (HttpContext.Items["AccessToken"] as AccessToken).Aud);
+            if (user != null)
             {
-                var user = _dataContext.UsersData
-                    .FirstOrDefault(ud => ud.Id == 
-                                          (HttpContext.Items["AccessToken"] as AccessToken).Aud);
-                if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(phone) && !string.IsNullOrEmpty(country)
-                    && !string.IsNullOrEmpty(about))
+                if (!string.IsNullOrEmpty(input))
                 {
-                    if (user.UserName != name)
-                    {
-                        user.UserName = name;
-                    }
-
-                    if (user.Phone != phone)
-                    {
-                        user.Phone = phone;
-                    }
-
-                    if (user.Country != country)
-                    {
-                        user.Country = country;
-                    }
-
-                    if (user.AboutUser != about)
-                    {
-                        user.AboutUser = about;
-                    }
-                    
-                    _dataContext.SaveChanges();
                     res.Data = new();
+                    _dataAccessor.AmendUsersData(input, user);
                 }
                 else
                 {
@@ -321,17 +295,18 @@ public class ApiUserController : ControllerBase
                     res.Data = null;
                 }
             }
-        }
-        else
-        {
-            res.Status = new()
+            else
             {
-                IsOk = false,
-                Code = 401,
-                Phrase = "Data not accepted"
-            };
-            res.Data = null;
+                res.Status = new()
+                {
+                    IsOk = false,
+                    Code = 401,
+                    Phrase = "User not found"
+                };
+                res.Data = null;
+            }
         }
+
         return res;
     }
 }

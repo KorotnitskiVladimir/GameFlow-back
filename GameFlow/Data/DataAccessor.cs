@@ -158,4 +158,67 @@ public class DataAccessor
 
         return category;
     }
+
+    public void AmendUsersData(string data, UserData user)
+    {
+        string[] temp = data.Split(',', 4);
+        string name = temp[0];
+        string phone = temp[1];
+        string country = temp[2];
+        string about = temp[3];
+        List<string> errors = new();
+        if (!string.IsNullOrEmpty(name))
+        {
+            if (user.UserName != name)
+            {
+                user.UserName = name;
+            }
+        }
+        else
+        {
+            errors.Add("Name can't be blank");
+        }
+
+        if (!string.IsNullOrEmpty(phone))
+        {
+            if (user.Phone != phone)
+            {
+                user.Phone = phone;
+            }
+        }
+        else
+        {
+            errors.Add("Phone can't be blank");
+        }
+
+        if (!string.IsNullOrEmpty(country))
+        {
+            if (user.Country != country)
+            {
+                user.Country = country;
+            }
+        }
+        else
+        {
+            errors.Add("Country can't be blank");
+        }
+
+        if (!string.IsNullOrEmpty(about))
+        {
+            if (user.AboutUser != about)
+            {
+                user.AboutUser = about;
+            }
+        }
+
+        if (errors.Count == 0)
+        {
+            _dataContext.SaveChanges();
+        }
+        else
+        {
+            throw new Win32Exception(401, string.Join(',', errors));
+        }
+                
+    }
 }
