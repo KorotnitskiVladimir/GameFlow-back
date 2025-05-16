@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using GameFlow.Services.KDF;
+using GameFlow.Services.Storage;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,12 +12,15 @@ public class DataAccessor
     private readonly DataContext _dataContext;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IKDFService _kdfService;
+    private readonly IstorageService _storageService;
 
-    public DataAccessor(DataContext dataContext, IHttpContextAccessor httpContextAccessor, IKDFService kdfService)
+    public DataAccessor(DataContext dataContext, IHttpContextAccessor httpContextAccessor, IKDFService kdfService,
+        IstorageService storageService)
     {
         _dataContext = dataContext;
         _httpContextAccessor = httpContextAccessor;
         _kdfService = kdfService;
+        _storageService = storageService;
     }
 
     private string ImagePath => 
@@ -159,7 +163,7 @@ public class DataAccessor
         return category;
     }
 
-    public void AmendUsersData(string data, UserData user)
+    public string AmendUsersData(string data, UserData user)
     {
         string[] temp = data.Split(',', 4);
         string name = temp[0];
@@ -214,10 +218,11 @@ public class DataAccessor
         if (errors.Count == 0)
         {
             _dataContext.SaveChanges();
+            return "Changes saved successfully";
         }
         else
         {
-            throw new Win32Exception(401, string.Join(',', errors));
+             return string.Join(',', errors);
         }
                 
     }

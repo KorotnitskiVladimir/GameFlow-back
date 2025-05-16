@@ -9,6 +9,7 @@ using System.Text.Json;
 using GameFlow.Middleware;
 using GameFlow.Services.Date;
 using GameFlow.Services.Salt;
+using GameFlow.Services.Storage;
 using Microsoft.AspNetCore.Authentication;
 using Syncfusion.EJ2.PivotView;
 
@@ -23,22 +24,22 @@ public class ApiUserController : ControllerBase
     private readonly ISaltGeneratorService _saltGenerator;
     private readonly IAgeCalculatorService _ageCalculator;
     private readonly DataAccessor _dataAccessor;
+    private readonly IstorageService _storageService;
 
     public ApiUserController(DataContext dataContext, IKDFService kdfService, ISaltGeneratorService saltGenerator, 
-        IAgeCalculatorService ageCalculator, DataAccessor dataAccessor)
+        IAgeCalculatorService ageCalculator, DataAccessor dataAccessor, IstorageService storageService)
     {
         _dataContext = dataContext;
         _kdfService = kdfService;
         _saltGenerator = saltGenerator;
         _ageCalculator = ageCalculator;
         _dataAccessor = dataAccessor;
+        _storageService = storageService;
     }
     
     [HttpPost]
     public RestResponse Register(UserApiSignUpFormModel? formModel)
     {
-        //var formModel = JsonSerializer.Deserialize<UserSignUpFormModel>(model);
-        //var formModel = JsonSerializer.Deserialize<UserSignUpFormModel>(HttpContext.Session.GetString(signupFormKey));
         var res = new RestResponse()
         {
             Service = "Api User Registration",
@@ -281,8 +282,7 @@ public class ApiUserController : ControllerBase
             {
                 if (!string.IsNullOrEmpty(input))
                 {
-                    res.Data = new();
-                    _dataAccessor.AmendUsersData(input, user);
+                    res.Data = _dataAccessor.AmendUsersData(input, user);
                 }
                 else
                 {
@@ -305,6 +305,53 @@ public class ApiUserController : ControllerBase
                 };
                 res.Data = null;
             }
+        }
+
+        return res;
+    }
+
+    [HttpPost("setAvatar")]
+    public RestResponse SetAvatar([FromBody]FormFile? formFile)
+    {
+        var res = new RestResponse()
+        {
+            Service = "Api User Avatar",
+            DataType = "object",
+            CacheTime = 600,
+        };
+        if (formFile != null)
+        {
+            if (HttpContext.User.Identity?.IsAuthenticated == true)
+            {
+                var user = _dataContext.UsersData
+                    .FirstOrDefault(ud => ud.Id ==
+                                          (HttpContext.Items["AccessToken"] as AccessToken).Aud);
+                if (user != null)
+                {
+                    res.Data = new();
+                    user.AvatarUrl = _storageService.SaveFile(formFile);
+                }
+                else
+                {
+                    res.Status = new()
+                    {
+                        IsOk = false,
+                        Code = 401,
+                        Phrase = "Data not accepted"
+                    };
+                    res.Data = null;
+                }
+            }
+        }
+        else
+        {
+            res.Status = new()
+            {
+                IsOk = false,
+                Code = 401,
+                Phrase = "Data not received"
+            };
+            res.Data = null;
         }
 
         return res;
