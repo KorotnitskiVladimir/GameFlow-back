@@ -224,6 +224,10 @@ public class DataAccessor
         {
              return string.Join(',', errors);
         }
-                
+    }
+
+    public string GetImagePath()
+    {
+        return ImagePath;
     }
 }

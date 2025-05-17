@@ -249,7 +249,10 @@ public class ApiUserController : ControllerBase
         };
         if (HttpContext.User.Identity?.IsAuthenticated ?? false)
         {
-            res.Data = (HttpContext.Items["AccessToken"] as AccessToken)?.User;
+            var user = (HttpContext.Items["AccessToken"] as AccessToken)?.User;
+            //res.Data = (HttpContext.Items["AccessToken"] as AccessToken)?.User;
+            user.AvatarUrl = _dataAccessor.GetImagePath() + user.AvatarUrl;
+            res.Data = user;
         }
         else
         {
@@ -311,7 +314,7 @@ public class ApiUserController : ControllerBase
     }
 
     [HttpPost("setAvatar")]
-    public RestResponse SetAvatar([FromBody]FormFile? formFile)
+    public RestResponse SetAvatar([FromForm]FormFile? formFile)
     {
         var res = new RestResponse()
         {
@@ -330,6 +333,7 @@ public class ApiUserController : ControllerBase
                 {
                     res.Data = new();
                     user.AvatarUrl = _storageService.SaveFile(formFile);
+                    _dataContext.SaveChanges();
                 }
                 else
                 {
@@ -337,7 +341,7 @@ public class ApiUserController : ControllerBase
                     {
                         IsOk = false,
                         Code = 401,
-                        Phrase = "Data not accepted"
+                        Phrase = "User not found"
                     };
                     res.Data = null;
                 }
