@@ -226,6 +226,20 @@ public class DataAccessor
         }
     }
 
+    public UserData? GetUserData(Guid id)
+    {
+        var user = _dataContext.UsersData.FirstOrDefault(ud => ud.Id == id);
+        if (user != null)
+        {
+            user.AvatarUrl = ImagePath + user.AvatarUrl;
+            return user;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     public string GetImagePath()
     {
         return ImagePath;

@@ -126,4 +126,105 @@ public class AdminController : Controller
 
         return errors;
     }
+
+    public IActionResult Product()
+    {
+        ProductViewModel viewModel = new()
+        {
+            FormModel = new(),
+            Categories = _dataContext.Categories.ToList()
+        };
+        
+        return View();
+    }
+
+    private Dictionary<string, string> ValidateProductFormModel(ProductFormModel? formModel)
+    {
+        double price;
+        try
+        {
+            price = double.Parse(formModel.Price, System.Globalization.CultureInfo.InvariantCulture);
+        }
+        catch
+        {
+            price = double.Parse(formModel.Price.Replace(',', '.'),
+                System.Globalization.CultureInfo.InvariantCulture);
+        }
+        Dictionary<string, string> errors = new();
+        if (formModel == null)
+        {
+            errors["Model"] = "Data not received";
+        }
+        else
+        {
+            if (_dataContext.Categories.FirstOrDefault(c => c.Id == formModel.CategoryId) == null)
+            {
+                errors[nameof(formModel.CategoryId)] = "Category not found";
+            }
+            if (string.IsNullOrEmpty(formModel.Name))
+            {
+                errors[nameof(formModel.Name)] = "Name required";
+            }
+
+            if (string.IsNullOrEmpty(formModel.Description))
+            {
+                errors[nameof(formModel.Description)] = "Description required";
+            }
+
+            if (!string.IsNullOrEmpty(formModel.Slug))
+            {
+                if (_dataContext.Categories.FirstOrDefault(c => c.Slug == formModel.Slug) != null)
+                {
+                    errors[nameof(formModel.Slug)] = "Such product exists already";
+                }
+            }
+            
+            if (string.IsNullOrEmpty(formModel.Images.ToString()))
+            {
+                errors[nameof(formModel.Images)] = "Image(s) required";
+            }
+
+            if (formModel.Rating <= 0 || formModel.Rating > 100)
+            {
+                errors[nameof(formModel.Rating)] = "Rating is out of allowed range";
+            }
+
+            if (price <= 0)
+            {
+                errors[nameof(formModel.Price)] = "Price can't be less or equal to zero";
+            }
+
+            if (string.IsNullOrEmpty(formModel.Developer))
+            {
+                errors[nameof(formModel.Developer)] = "Developer required";
+            }
+
+            if (string.IsNullOrEmpty(formModel.Publisher))
+            {
+                errors[nameof(formModel.Publisher)] = "Publisher required";
+            }
+
+            if (string.IsNullOrEmpty(formModel.Tags))
+            {
+                errors[nameof(formModel.Tags)] = "Tags required";
+            }
+
+            if (string.IsNullOrEmpty(formModel.SupportedMods))
+            {
+                errors[nameof(formModel.SupportedMods)] = "Supported mods required";
+            }
+
+            if (string.IsNullOrEmpty(formModel.SupportedPlatforms))
+            {
+                errors[nameof(formModel.SupportedPlatforms)] = "Supported platforms required";
+            }
+
+            if (formModel.ReleaseDate == default)
+            {
+                errors[nameof(formModel.ReleaseDate)] = "Release date required";
+            }
+        }
+
+        return errors;
+    }
 }

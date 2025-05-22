@@ -1,0 +1,32 @@
+﻿@model GameFlow.Models.Admin.ProductViewModel
+@{
+    ViewData["Title"] = "Category page";
+}
+<div class="text-center">
+    <h1 class="display-4">Add Product</h1>
+</div>
+
+<div class="col">
+    <form id="add-product-form" enctype="multipart/form-data">
+        Name: <input name="product-name"/><br/>
+        Description: <textarea name="product-description"></textarea><br/>
+        Category: <select name="category-id">
+            @foreach (var c in Model.Categories)
+            {
+                <option value="@c.Id">@c.Name</option>
+            }
+        </select><br/>
+        Address: <input name="product-slug"/><br/>
+        Pictures: <input name="product-image" type="file" multiple/><br/>
+        Video: <input name="product-video" type="file" multiple/><br/>
+        Rating: <input name="product-rating" type="number" min="1" max="100" step="1"/><br/>
+        Price: <input name="product-price" type="number" step="0.01"/><br/>
+        Developer: <input name="product-developer"/><br/>
+        Publisher: <input name="product-publisher"/><br/>
+        Tags: <input name="product-tags" placeholder="separated by ','"/><br/>
+        Mods: <input name="product-mods" placeholder="separated by ','"/><br/>
+        Platforms: <input name="product-platforms" placeholder="separated by ','"/><br/>
+        ReleaseDate: <input name="product-releaseDate" type="datetime-local"/><br/>
+        <button type="submit">Add category</button>
+    </form>
+</div>

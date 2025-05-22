@@ -9,6 +9,8 @@ public class DataContext: DbContext // создаем базу данных
     public DbSet<UserAccess> UserAccesses { get; private set; }
     public DbSet<AccessToken> AccessTokens { get; private set; }
     public DbSet<Category> Categories { get; private set; }
+    
+    public DbSet<Product> Products { get; private set; }
 
     public DataContext(DbContextOptions options) : base(options) {}
 
@@ -51,6 +53,16 @@ public class DataContext: DbContext // создаем базу данных
             .HasOne(c => c.ParentCategory)
             .WithMany()
             .HasForeignKey(c => c.ParentId);
+
+        modelBuilder.Entity<Product>()
+            .HasOne(p => p.Category)
+            .WithMany(c => c.Products)
+            .HasForeignKey(p => p.CategoryId)
+            .HasPrincipalKey(c => c.Id);
+
+        modelBuilder.Entity<Product>()
+            .HasIndex(p => p.Slug)
+            .IsUnique();
 
         modelBuilder.Entity<UserRole>().HasData(
             new UserRole()
