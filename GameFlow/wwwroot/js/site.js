@@ -120,4 +120,21 @@
                 }
             });
     }
+    if (form.id == "add-product-form")
+    {
+        e.preventDefault();
+        fetch("/Admin/AddProduct/", {
+            method: 'POST',
+            body: new FormData(form)
+        }).then(r => r.json())
+            .then(j => {
+                if (j.status == 401){
+                    console.log(j.message);
+                }
+                else {
+                    window.location.reload();
+                    window.alert("Product added successfully");
+                }
+            });
+    }
 })

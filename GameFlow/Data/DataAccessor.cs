@@ -152,12 +152,18 @@ public class DataAccessor
 
     public Category? GetCategory(string slug)
     {
-        // дописать include products + asnotracking
-        var category = _dataContext.Categories.FirstOrDefault(c => c.Slug == slug);
+        var category = _dataContext.Categories
+            .Include(c => c.Products)
+            .AsNoTracking()
+            .FirstOrDefault(c => c.Slug == slug);
         if (category != null)
         {
             category.ImageUrl = ImagePath + category.ImageUrl;
-            // тоже самое для фото продуктов
+            foreach (var product in category!.Products)
+            {
+                product.ImagesCsv = string.Join(',', product.ImagesCsv.Split(',')
+                    .Select(i => ImagePath + i));
+            }
         }
 
         return category;
@@ -240,8 +246,19 @@ public class DataAccessor
         }
     }
 
-    public string GetImagePath()
+    public Product? GetProduct(string prodId)
     {
-        return ImagePath;
+        Guid? productId = Guid.Parse(prodId);
+        var product = _dataContext.Products
+            .Include(p => p.Category)
+            .AsNoTracking()
+            .FirstOrDefault(p => p.Id == productId);
+        if (product != null)
+        {
+            product.ImagesCsv = string.Join(',', product.ImagesCsv.Split(',')
+                .Select(i => ImagePath + i));
+        }
+
+        return product;
     }
 }

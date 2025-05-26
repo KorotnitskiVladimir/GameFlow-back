@@ -135,7 +135,7 @@ public class AdminController : Controller
             Categories = _dataContext.Categories.ToList()
         };
         
-        return View();
+        return View(viewModel);
     }
 
     private Dictionary<string, string> ValidateProductFormModel(ProductFormModel? formModel)
@@ -226,5 +226,65 @@ public class AdminController : Controller
         }
 
         return errors;
+    }
+
+    [HttpPost]
+    public JsonResult AddProduct(ProductFormModel formModel)
+    {
+        double price;
+        try
+        {
+            price = double.Parse(formModel.Price, System.Globalization.CultureInfo.InvariantCulture);
+        }
+        catch
+        {
+            price = double.Parse(formModel.Price.Replace(',', '.'),
+                System.Globalization.CultureInfo.InvariantCulture);
+        }
+
+        Dictionary<string, string> errors = ValidateProductFormModel(formModel);
+        if (errors.Count == 0)
+        {
+            Data.Product product = new()
+            {
+                Id = Guid.NewGuid(),
+                CategoryId = formModel.CategoryId,
+                Rating = formModel.Rating,
+                Price = price,
+                Name = formModel.Name,
+                Description = formModel.Description,
+                Slug = formModel.Slug,
+                ImagesCsv = string.Join(',', formModel.Images.Select(img => _storageService.SaveFile(img))),
+                Developer = formModel.Developer,
+                Publisher = formModel.Publisher,
+                Tags = new(),
+                SupportedMods = new(),
+                SupportedPlatforms = new(),
+                ReleaseDate = formModel.ReleaseDate
+            };
+            //string[] tags = formModel.Tags.Split(',');
+            //string[] mods = formModel.SupportedMods.Split(',');
+            //string[] platforms = formModel.SupportedPlatforms.Split(',');
+            foreach (var tag in formModel.Tags.Split(','))
+            {
+                product.Tags.Add(tag);
+            }
+            foreach (var mod in formModel.SupportedMods.Split(','))
+            {
+                product.SupportedMods.Add(mod);
+            }
+            foreach (var platform in formModel.SupportedPlatforms.Split(','))
+            {
+                product.SupportedPlatforms.Add(platform);
+            }
+
+            _dataContext.Products.Add(product);
+            _dataContext.SaveChanges();
+            return Json(formModel);
+        }
+        else
+        {
+            return Json(new { status = 401, message = errors.Values });
+        }
     }
 }

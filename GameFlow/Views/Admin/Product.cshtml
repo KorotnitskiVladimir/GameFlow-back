@@ -1,6 +1,6 @@
 ﻿@model GameFlow.Models.Admin.ProductViewModel
 @{
-    ViewData["Title"] = "Category page";
+    ViewData["Title"] = "Product page";
 }
 <div class="text-center">
     <h1 class="display-4">Add Product</h1>
@@ -26,7 +26,7 @@
         Tags: <input name="product-tags" placeholder="separated by ','"/><br/>
         Mods: <input name="product-mods" placeholder="separated by ','"/><br/>
         Platforms: <input name="product-platforms" placeholder="separated by ','"/><br/>
-        ReleaseDate: <input name="product-releaseDate" type="datetime-local"/><br/>
-        <button type="submit">Add category</button>
+        ReleaseDate: <input name="product-releaseDate" type="date"/><br/>
+        <button type="submit">Add product</button>
     </form>
 </div>
