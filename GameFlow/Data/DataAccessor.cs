@@ -4,6 +4,7 @@ using GameFlow.Services.Storage;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Syncfusion.EJ2.Linq;
 
 namespace GameFlow.Data;
 
@@ -265,6 +266,34 @@ public class DataAccessor
     public List<Product> AllProducts()
     {
         var products = _dataContext.Products.Where(p => p.DeletedAt == null)
+            .AsNoTracking()
+            .ToList();
+        foreach (var product in products)
+        {
+            product.ImagesCsv = string.Join(',', product.ImagesCsv.Split(',')
+                .Select(i => ImagePath + i));
+        }
+
+        return products;
+    }
+
+    public List<Product> GetTopRatedProducts()
+    {
+        var products = _dataContext.Products.OrderByDescending(p => p.Rating)
+            .AsNoTracking()
+            .ToList();
+        foreach (var product in products)
+        {
+            product.ImagesCsv = string.Join(',', product.ImagesCsv.Split(',')
+                .Select(i => ImagePath + i));
+        }
+
+        return products;
+    }
+
+    public List<Product> GetNewestProducts()
+    {
+        var products = _dataContext.Products.OrderByDescending(p => p.ReleaseDate)
             .AsNoTracking()
             .ToList();
         foreach (var product in products)
