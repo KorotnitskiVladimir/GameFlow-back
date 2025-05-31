@@ -51,4 +51,16 @@ public class ApiShopController : ControllerBase
             Data = _dataAccessor.GetProduct(prodId)
         };
     }
+
+    [HttpGet("allProducts")]
+    public RestResponse GetAllProducts()
+    {
+        return new()
+        {
+            Service = "Api Products",
+            DataType = "array",
+            CacheTime = 600,
+            Data = _dataAccessor.AllProducts()
+        };
+    }
 }

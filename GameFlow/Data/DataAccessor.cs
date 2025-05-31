@@ -261,4 +261,18 @@ public class DataAccessor
 
         return product;
     }
+
+    public List<Product> AllProducts()
+    {
+        var products = _dataContext.Products.Where(p => p.DeletedAt == null)
+            .AsNoTracking()
+            .ToList();
+        foreach (var product in products)
+        {
+            product.ImagesCsv = string.Join(',', product.ImagesCsv.Split(',')
+                .Select(i => ImagePath + i));
+        }
+
+        return products;
+    }
 }
