@@ -1,5 +1,4 @@
-﻿using GameFlow.Migrations;
-using Category = GameFlow.Data.Category;
+﻿using Category = GameFlow.Data.Category;
 
 namespace GameFlow.Models.Admin;
 

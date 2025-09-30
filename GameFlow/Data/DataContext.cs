@@ -33,17 +33,9 @@ public class DataContext: DbContext // создаем базу данных
             .WithMany()
             .HasForeignKey(ua => ua.RoleId);
 
-        modelBuilder.Entity<AccessToken>().HasKey(t => t.Jti);
-
         modelBuilder.Entity<AccessToken>()
-            .HasOne(t => t.User)
-            .WithMany()
-            .HasForeignKey(t => t.Aud);
+            .HasKey(t => t.Jti);
 
-        modelBuilder.Entity<AccessToken>()
-            .HasOne(t => t.UserAccess)
-            .WithMany()
-            .HasForeignKey(t => t.Sub);
 
         modelBuilder.Entity<Category>()
             .HasIndex(c => c.Slug)
