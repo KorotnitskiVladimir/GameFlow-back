@@ -3,6 +3,7 @@ using GameFlow.Models.Admin;
 using GameFlow.Services.Storage;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
+using Action = GameFlow.Data.Action;
 
 namespace GameFlow.Controllers;
 
@@ -279,6 +280,164 @@ public class AdminController : Controller
             }
 
             _dataContext.Products.Add(product);
+            _dataContext.SaveChanges();
+            return Json(formModel);
+        }
+        else
+        {
+            return Json(new { status = 401, message = errors.Values });
+        }
+    }
+    
+    public IActionResult Action()
+    {
+        ActionViewModel? viewModel = new()
+        {
+            FormModel = new()
+        };
+        return View(viewModel);
+    }
+    
+    private Dictionary<string, string> ValidateActionFormModel(ActionFormModel? formModel)
+    {
+        Dictionary<string, string> errors = new();
+        if (formModel == null)
+        {
+            errors["Model"] = "Data not received";
+        }
+        else
+        {
+            if (string.IsNullOrEmpty(formModel.ApplicantType))
+            {
+                errors[nameof(formModel.ApplicantType)] = "Applicant type required";
+            }
+            
+            if (string.IsNullOrEmpty(formModel.ApplicantName))
+            {
+                errors[nameof(formModel.ApplicantName)] = "Applicant name required";
+            }
+            
+            if (!string.IsNullOrEmpty(formModel.ApplicantType) && !string.IsNullOrEmpty(formModel.ApplicantName))
+            {
+                if (formModel.ApplicantType == "product")
+                {
+                    var products = _dataContext.Products.Select(p => p.Name);
+                    if (!products.Contains(formModel.ApplicantName))
+                    {
+                        errors[nameof(formModel.ApplicantName)] = "Such product not found";
+                    }
+                }
+                
+                if (formModel.ApplicantType == "category")
+                {
+                    var categories = _dataContext.Categories.Select(c => c.Name);
+                    if (!categories.Contains(formModel.ApplicantName))
+                    {
+                        errors[nameof(formModel.Name)] = "Such category not found";
+                    }
+                }
+
+                if (formModel.ApplicantType == "developer")
+                {
+                    var developers = _dataContext.Products.Select(p => p.Developer);
+                    if (!developers.Contains(formModel.ApplicantName))
+                    {
+                        errors[nameof(formModel.ApplicantName)] = "Such developer not found";
+                    }
+                }
+
+                if (formModel.ApplicantType == "publisher")
+                {
+                    var publishers = _dataContext.Products.Select(p => p.Publisher);
+                    if (!publishers.Contains(formModel.ApplicantName))
+                    {
+                        errors[nameof(formModel.ApplicantName)] = "Such publisher not found";
+                    }
+                }
+            }
+            
+            if (string.IsNullOrEmpty(formModel.Name))
+            {
+                errors[nameof(formModel.Name)] = "Name required";
+            }
+            
+            if (string.IsNullOrEmpty(formModel.Description))
+            {
+                errors[nameof(formModel.Description)] = "Description required";
+            }
+
+            if (formModel.Amount <= 0 || formModel.Amount >= 100)
+            {
+                errors[nameof(formModel.Amount)] = "Amount is out of allowed range";
+            }
+
+            if (formModel.StartDate == default)
+            {
+                errors[nameof(formModel.StartDate)] = "Start date required";
+            }
+            
+            if (formModel.EndDate == default)
+            {
+                errors[nameof(formModel.StartDate)] = "Start date required";
+            }
+            
+            if (formModel.EndDate <= DateTime.Now)
+            {
+                errors[nameof(formModel.StartDate)] = "End date can't be less than current date";
+            }
+        }
+
+        return errors;
+    }
+    
+    [HttpPost]
+    public JsonResult AddAction(ActionFormModel formModel)
+    {
+
+        Dictionary<string, string> errors = ValidateActionFormModel(formModel);
+        if (errors.Count == 0)
+        {
+            Action action = new()
+            {
+                Id = Guid.NewGuid(),
+                Name = formModel.Name,
+                Description = formModel.Description,
+                Amount = formModel.Amount,
+                StartDate = formModel.StartDate,
+                EndDate = formModel.EndDate
+            };
+
+            _dataContext.Actions.Add(action);
+            if (formModel.ApplicantType == "product")
+            {
+                var product = _dataContext.Products.FirstOrDefault(p => p.Name == formModel.ApplicantName);
+                product.ActionId = action.Id;
+            }
+            else if (formModel.ApplicantType == "category")
+            {
+                var category = _dataContext.Categories.FirstOrDefault(c => c.Name == formModel.ApplicantName);
+                var products = _dataContext.Products.Where(p => p.CategoryId == category.Id);
+                foreach (var product in products)
+                {
+                    product.ActionId = action.Id;
+                }
+            }
+            else if (formModel.ApplicantType == "developer")
+            {
+                var products = _dataContext.Products.Where(p => p.Developer == formModel.ApplicantName);
+                foreach (var product in products)
+                {
+                    product.ActionId = action.Id;
+                }
+            }
+            else if (formModel.ApplicantType == "publisher")
+            {
+                var products = _dataContext.Products.Where(p => p.Publisher == formModel.ApplicantName);
+                foreach (var product in products)
+                {
+                    product.ActionId = action.Id;
+                }
+            }
             _dataContext.SaveChanges();
             return Json(formModel);
         }

@@ -8,6 +8,7 @@ public record Product
     public Guid CategoryId { get; set; }
     public Guid? ActionId { get; set; }
     public int? Rating { get; set; }  // Механизм обновления рейтинга???
+    public int CopiesSold { get; set; } = 0; 
     public double Price { get; set; }
     public string Name { get; set; } = null!;
     public string Description { get; set; } = null!;
@@ -21,6 +22,7 @@ public record Product
     public DateTime ReleaseDate { get; set; }
     public DateTime? DeletedAt { get; set; }
     [JsonIgnore] public Category Category { get; set; } = null!;
+    [JsonIgnore] public Action? Action { get; set; }
     // Reviews
     // SystemRequirements
     // Patches

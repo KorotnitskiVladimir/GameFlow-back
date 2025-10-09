@@ -11,6 +11,8 @@ public class DataContext: DbContext // создаем базу данных
     public DbSet<Category> Categories { get; private set; }
     
     public DbSet<Product> Products { get; private set; }
+    
+    public DbSet<Action> Actions { get; private set; }
 
     public DataContext(DbContextOptions options) : base(options) {}
 
@@ -63,6 +65,12 @@ public class DataContext: DbContext // создаем базу данных
         modelBuilder.Entity<Product>()
             .HasIndex(p => p.Slug)
             .IsUnique();
+        
+        modelBuilder.Entity<Product>()
+            .HasOne(p => p.Action)
+            .WithMany()
+            .HasForeignKey(p => p.ActionId)
+            .HasPrincipalKey(a => a.Id);
 
         modelBuilder.Entity<UserRole>().HasData(
             new UserRole()
