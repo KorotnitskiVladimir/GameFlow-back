@@ -40,7 +40,7 @@ public class ApiShopController : ControllerBase
         };
     }
 
-    [HttpGet("{prodId}")]
+    [HttpGet("product/{prodId}")]
     public RestResponse GetSelectedProduct(string prodId)
     {
         return new()

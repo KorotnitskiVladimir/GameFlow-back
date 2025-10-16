@@ -20,6 +20,8 @@ builder.Services.AddSingleton<ISaltGeneratorService, SaltGenerator>();
 
 builder.Services.AddSingleton<IAgeCalculatorService, AgeCalculator>();
 
+builder.Services.AddTransient<ActionValidityChecker>();
+
 builder.Services.AddDistributedMemoryCache(); // Включаем сессию
 builder.Services.AddSession(options =>
     {
@@ -44,6 +46,13 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(policy => { policy.AllowAnyOrigin().AllowAnyHeader(); }));
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var validator = services.GetRequiredService<ActionValidityChecker>();
+    validator.CheckActionValidity();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
