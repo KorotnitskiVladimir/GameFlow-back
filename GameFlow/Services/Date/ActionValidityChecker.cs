@@ -27,6 +27,7 @@ public class ActionValidityChecker
                 foreach (var product in products)
                 {
                     product.ActionId = null;
+                    product.Action = null;
                 }
                 _dataContext.SaveChanges();
             }
