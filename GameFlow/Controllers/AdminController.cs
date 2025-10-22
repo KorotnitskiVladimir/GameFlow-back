@@ -255,7 +255,6 @@ public class AdminController : Controller
                 Price = price,
                 Name = formModel.Name,
                 Description = formModel.Description,
-                Slug = formModel.Slug,
                 ImagesCsv = string.Join(',', formModel.Images.Select(img => _storageService.SaveFile(img))),
                 Developer = formModel.Developer,
                 Publisher = formModel.Publisher,
@@ -271,13 +270,30 @@ public class AdminController : Controller
             {
                 product.Tags.Add(tag);
             }
+            
             foreach (var mod in formModel.SupportedMods.Split(','))
             {
                 product.SupportedMods.Add(mod);
             }
+            
             foreach (var platform in formModel.SupportedPlatforms.Split(','))
             {
                 product.SupportedPlatforms.Add(platform);
+            }
+            
+            if (!string.IsNullOrEmpty(formModel.Slug))
+            {
+                product.Slug = formModel.Slug;
+            }
+            
+            if (formModel.HorizonImages != null)
+            {
+                product.HorisontalImages = string.Join(',', formModel.HorizonImages.Select(img => _storageService.SaveFile(img)));
+            }
+
+            if (formModel.VerticalImages != null)
+            {
+                product.VerticalImages = string.Join(',', formModel.VerticalImages.Select(img => _storageService.SaveFile(img)));
             }
 
             _dataContext.Products.Add(product);

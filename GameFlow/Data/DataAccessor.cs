@@ -26,6 +26,31 @@ public class DataAccessor
 
     private string ImagePath => 
         $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}/Admin/Image/";
+
+    public Product GetProduct(Product product)
+    {
+        product.ImagesCsv = string.Join(',', product.ImagesCsv.Split(',')
+            .Select(i => ImagePath + i));
+        
+        if (!string.IsNullOrEmpty(product.HorisontalImages))
+        {
+            product.HorisontalImages = string.Join(',', product.HorisontalImages.Split(',')
+                .Select(i => ImagePath + i));
+        }
+
+        if (!string.IsNullOrEmpty(product.VerticalImages))
+        {
+            product.VerticalImages = string.Join(',', product.VerticalImages.Split(',')
+                .Select(i => ImagePath + i));
+        }
+        
+        if (product.ActionId != null)
+        {
+            product.Action = _dataContext.Actions.FirstOrDefault(a => a.Id == product.ActionId);
+        }
+        
+        return product;
+    }
     
     public AccessToken Authenticate(HttpRequest Request)
     {
@@ -162,12 +187,13 @@ public class DataAccessor
             category.ImageUrl = ImagePath + category.ImageUrl;
             foreach (var product in category!.Products)
             {
-                product.ImagesCsv = string.Join(',', product.ImagesCsv.Split(',')
-                    .Select(i => ImagePath + i));
-                if (product.ActionId != null)
-                {
-                    product.Action = _dataContext.Actions.FirstOrDefault(a => a.Id == product.ActionId);
-                }
+                GetProduct(product);
+                //product.ImagesCsv = string.Join(',', product.ImagesCsv.Split(',')
+                //    .Select(i => ImagePath + i));
+                //if (product.ActionId != null)
+                //{
+                //    product.Action = _dataContext.Actions.FirstOrDefault(a => a.Id == product.ActionId);
+                //}
             }
         }
 
@@ -260,12 +286,7 @@ public class DataAccessor
             .FirstOrDefault(p => p.Id == productId);
         if (product != null)
         {
-            product.ImagesCsv = string.Join(',', product.ImagesCsv.Split(',')
-                .Select(i => ImagePath + i));
-            if (product.ActionId != null)
-            {
-                product.Action = _dataContext.Actions.FirstOrDefault(a => a.Id == product.ActionId);
-            }
+            GetProduct(product);
         }
 
         return product;
@@ -278,12 +299,7 @@ public class DataAccessor
             .ToList();
         foreach (var product in products)
         {
-            product.ImagesCsv = string.Join(',', product.ImagesCsv.Split(',')
-                .Select(i => ImagePath + i));
-            if (product.ActionId != null)
-            {
-                product.Action = _dataContext.Actions.FirstOrDefault(a => a.Id == product.ActionId);
-            }
+            GetProduct(product);
         }
 
         return products;
@@ -296,12 +312,7 @@ public class DataAccessor
             .ToList();
         foreach (var product in products)
         {
-            product.ImagesCsv = string.Join(',', product.ImagesCsv.Split(',')
-                .Select(i => ImagePath + i));
-            if (product.ActionId != null)
-            {
-                product.Action = _dataContext.Actions.FirstOrDefault(a => a.Id == product.ActionId);
-            }
+            GetProduct(product);
         }
 
         return products;
@@ -314,12 +325,7 @@ public class DataAccessor
             .ToList();
         foreach (var product in products)
         {
-            product.ImagesCsv = string.Join(',', product.ImagesCsv.Split(',')
-                .Select(i => ImagePath + i));
-            if (product.ActionId != null)
-            {
-                product.Action = _dataContext.Actions.FirstOrDefault(a => a.Id == product.ActionId);
-            }
+            GetProduct(product);
         }
 
         return products;

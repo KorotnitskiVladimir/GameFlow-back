@@ -19,6 +19,12 @@ public class ProductFormModel
     [FromForm(Name = "product-image")]
     public IFormFile[] Images { get; set; } = null!;
     
+    [FromForm(Name = "horizon-images")]
+    public IFormFile[]? HorizonImages { get; set; }
+    
+    [FromForm(Name = "vertical-images")]
+    public IFormFile[]? VerticalImages { get; set; }
+    
     [FromForm(Name = "product-video")] 
     public IFormFile[]? Videos { get; set; }
     

@@ -13,7 +13,9 @@ public record Product
     public string Name { get; set; } = null!;
     public string Description { get; set; } = null!;
     public string? Slug { get; set; }
-    public string ImagesCsv { get; set; } = null!;
+    public string ImagesCsv { get; set; } = null!; // оставляем для основной картинки
+    public string? HorisontalImages { get; set; }
+    public string? VerticalImages { get; set; }
     public string Developer { get; set; } = null!;
     public string Publisher { get; set; } = null!;
     public List<string> Tags { get; set; } = null!;
