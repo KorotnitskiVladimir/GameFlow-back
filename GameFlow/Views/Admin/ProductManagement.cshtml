@@ -1,0 +1,33 @@
+﻿@model GameFlow.Models.Admin.ProductAmendmentViewModel
+@{
+    ViewData["Title"] = "Product management page";
+}
+<div class="text-center">
+    <h1 class="display-4">Manage product's images</h1>
+</div>
+
+<div class="col">
+    <form id="product-management-form" enctype="multipart/form-data">
+        Product name: <input name="product-name"/><br/>
+        Title image action: <select name="title">
+            <option value="nothing">Do nothing</option>
+            <option value="amend">Amend image</option>
+        </select><br/>
+        Title image: <input name="product-image" type="file"/><br/>
+        Horizon images action: <select name="horizon">
+            <option value="nothing">Do nothing</option>
+            <option value="add">Add images</option>
+            <option value="amend">Amend images</option>
+            <option value="delete">Delete images</option>
+        </select><br/>
+        Horizontally oriented images: <input name="horizon-images" type="file" multiple/><br/>
+        Vertical images action: <select name="vertical">
+            <option value="nothing">Do nothing</option>
+            <option value="add">Add images</option>
+            <option value="amend">Amend images</option>
+            <option value="delete">Delete images</option>
+        </select><br/>
+        Vertically oriented images: <input name="vertical-images" type="file" multiple/><br/>
+        <button type="submit">Apply changes</button>
+    </form>
+</div>

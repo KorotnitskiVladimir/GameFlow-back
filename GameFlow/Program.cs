@@ -1,5 +1,6 @@
 using GameFlow.Data;
 using GameFlow.Middleware;
+using GameFlow.Models.Admin;
 using GameFlow.Services.Date;
 using GameFlow.Services.KDF;
 using GameFlow.Services.Salt;
@@ -38,6 +39,7 @@ builder.Services.AddDbContext<DataContext>(
             .GetConnectionString("LocalMs")));
 
 builder.Services.AddScoped<DataAccessor>();
+builder.Services.AddScoped<FormsValidators>();
 
 //builder.Services.AddCors(options =>
    //options.AddPolicy("CorsPolicy", policy => { policy.AllowAnyOrigin().AllowAnyHeader(); }));

@@ -154,4 +154,21 @@
                 }
             });
     }
+    if (form.id == "product-management-form")
+    {
+        e.preventDefault();
+        fetch("/Admin/AmendProduct/", {
+            method: 'POST',
+            body: new FormData(form)
+        }).then(r => r.json())
+            .then(j => {
+                if (j.status == 401){
+                    console.log(j.message);
+                }
+                else {
+                    window.location.reload();
+                    window.alert("Product amended successfully");
+                }
+            });
+    }
 })
