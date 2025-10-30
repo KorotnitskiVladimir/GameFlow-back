@@ -336,6 +336,18 @@ public class DataAccessor
         var products = _dataContext.Products.Where(p => p.Price < 100)
             .AsNoTracking()
             .ToList();
+
+        var discounted = _dataContext.Products.Where(p => p.ActionId != null);
+        foreach (var product in discounted)
+        {
+            var action = _dataContext.Actions.FirstOrDefault(a => a.Id == product.ActionId);
+            double diff = product.Price - product.Price * action.Amount;
+            if (diff < 100)
+            {
+                products.Add(product);
+            }
+        }
+        
         foreach (var product in products)
         {
             GetProduct(product);
