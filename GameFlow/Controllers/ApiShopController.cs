@@ -87,4 +87,16 @@ public class ApiShopController : ControllerBase
             Data = _dataAccessor.GetNewestProducts()
         };
     }
+    
+    [HttpGet("cheapestProducts")]
+    public RestResponse CheapestProducts()
+    {
+        return new()
+        {
+            Service = "Api product",
+            DataType = "array",
+            CacheTime = 600,
+            Data = _dataAccessor.GetCheapestProducts()
+        };
+    }
 }

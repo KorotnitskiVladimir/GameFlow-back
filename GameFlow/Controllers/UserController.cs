@@ -189,7 +189,7 @@ public class UserController : Controller
                 ua.Id.ToString() == HttpContext.Session.GetString("userAccessId"));
         UserSignUpViewModel viewModel = new()
         {
-            User = _dataContext.UsersData.FirstOrDefault(u => u.Id == userAccess.UserId)
+            User = _dataContext.UsersData.FirstOrDefault(u => u.Id == userAccess.UserId) 
         };
 
         return View(viewModel);

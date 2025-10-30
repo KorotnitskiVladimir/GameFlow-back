@@ -330,4 +330,17 @@ public class DataAccessor
 
         return products;
     }
+    
+    public List<Product> GetCheapestProducts()
+    {
+        var products = _dataContext.Products.Where(p => p.Price < 100)
+            .AsNoTracking()
+            .ToList();
+        foreach (var product in products)
+        {
+            GetProduct(product);
+        }
+
+        return products;
+    }
 }
